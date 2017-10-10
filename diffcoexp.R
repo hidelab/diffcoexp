@@ -291,3 +291,74 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 	Result <- list(DCGs=DCGs,DCLs=DCLs)
 	return(Result)
 }
+
+#Added DRsort from DCGL package
+"DRsort" <- function(DCGs, DCLs, tf2target, expGenes) {
+  if (!('DCG' %in% colnames(DCGs))) DCGs <- data.frame(DCG=rownames(DCGs),DCGs)
+  if (!('DCG' %in% colnames(DCLs))) {
+    DCLs <- DCL.connect.DCG(DCLs,DCGs)
+  } ## if input DCLs do not have a "DCG" field, reduce the DCLs to those connecting to DCGs and identify the involved DCGs.
+  tf2target <- data.frame(tf2target)
+  colnames(tf2target) <- c('TF','target')
+  ####### END update 09/12/2013 #####################################################################################################
+  ###### TFs with expression data##########
+  TFinexpression<-intersect(as.character(tf2target$TF),as.character(expGenes)) ### changed from merge to intersect on 9/16/2013
+  TFinexpression<-unique(TFinexpression)
+  #######################################     DCG: add one field 'DCGisTF' to indicate whether the DCG is a TF or not        ##################################
+  TFs <- unique(tf2target$TF)
+  DCGs <- data.frame(DCGisTF=FALSE,DCGs)
+  TF.idx <- as.character(DCGs$DCG) %in% TFs
+  DCGs$DCGisTF[TF.idx] <- TRUE
+  DCGs[,c(1,2)] <- DCGs[,c(2,1)]
+  colnames(DCGs)[1:2] <- c('DCG','DCGisTF')
+  #######################################   DCG: add one field 'Upstream_TFofDCG' to indicate the TF(s) of the DCG    #############################
+  #cat('DCG: Add one field \'Upstream_TFofDCG\' to indicate the TF(s) of the DCG\n')
+  DCGistarget<-merge(tf2target,DCGs,by.x="target",by.y="DCG",all.y=T)
+  colnames(DCGistarget)[1:2] <- c('DCG','Upstream_TFofDCG')
+  #DCGistarget <- DCGistarget[,c('DCG','Upstream_TFofDCG','DCGisTF','dC','DCp.p','All.links.DCe','DC.links','DCL.same','DCL.diff','DCL.switch')]
+  DCG2TF <- unique(data.frame(DCG=DCGistarget$DCG,TF=DCGistarget$Upstream_TFofDCG))
+  DCG2TF <- DCG2TF[!is.na(DCG2TF[,2]),] ### records with NA value for TF were removed. 10/2/2013 
+  if (nrow(DCG2TF)==0) {warning('No DCG2TF is found!\n'); return(NULL)}	    
+  ######### this object is outputted for easing TED calculation.
+  DCG.factor <- factor(DCG2TF$DCG,levels=unique(DCG2TF$DCG),ordered=T)
+  DCGs.TF <- as.character(unlist(by(DCG2TF$TF,DCG.factor,paste,collapse=';')))	
+  DCG2TF.byDCG <- data.frame(DCG=levels(DCG.factor),TF=DCGs.TF)
+  DCGs <- merge(DCG2TF.byDCG,DCGs,by.x='DCG',by.y='DCG',all.y=T)
+  colnames(DCGs)[1:2] <- c('DCG','Upstream_TFofDCG')
+  #######################################  DCL: Add one field 'internal.TF' to indicate the internal TF of the DCL pair   ############################
+  tf.target <- paste(tf2target[,'TF'],tf2target[,'target'],sep='; ')
+  DCL.pair1 <- paste(DCLs$Gene.1,DCLs$Gene.2, sep='; ')
+  TF1.idx <- DCL.pair1 %in% tf.target
+  DCL.pair2 <- paste(DCLs$Gene.2,DCLs$Gene.1, sep='; ')
+  TF2.idx <- DCL.pair2 %in% tf.target
+  DCLs <- data.frame(TF=NA,DCLs)
+  DCLs[TF1.idx,'TF'] <- as.character(DCLs[TF1.idx,'Gene.1'])
+  DCLs[TF2.idx,'TF'] <- as.character(DCLs[TF2.idx,'Gene.2'])
+  DCLs[TF1.idx & TF2.idx, 'TF'] <- paste(as.character(DCLs[TF1.idx & TF2.idx,'Gene.1']),as.character(DCLs[TF1.idx & TF2.idx,'Gene.2']),sep='; ')
+  colnames(DCLs)[1] <- 'internal.TF'
+  #######################################  DCL: Add one field 'common.TF' to indicate the common TF(s) of the DCL pair        ##############
+  #cat('DCL: Add one field \'common.TF\' to indicate the common TF(s) of the DCL pair \n')
+  tfbridgedDCL<-merge(DCLs,tf2target,by.x="Gene.1",by.y="target") ####nrow of tfbridgedDCL is less than nrow of DCL###
+  colnames(tfbridgedDCL)[1:2]<- c('Gene.1','internal.TF')   ## add the 'TF' that regulates 'Gene.1'
+  colnames(tfbridgedDCL)[ncol(tfbridgedDCL)] <- 'TF.of.g1' ### added on 9/12/2013
+  tfbridgedDCL <- merge(tf2target,tfbridgedDCL,by.x=c('TF','target'),by.y=c('TF.of.g1','Gene.2'))
+  colnames(tfbridgedDCL)[1:2] <- c('common.TF','Gene.2')  ## extract the rows in which 'TF' that regulates Gene.1 and Gene.2 both.
+  tfbridgedDCL <- unique(tfbridgedDCL)
+  if (nrow(tfbridgedDCL)==0) {warning('No TF-bridged-DCL is found!\n'); return(NULL)}
+  tfbridgedDCL<-data.frame(common.TFisDCG=FALSE,tfbridgedDCL) 
+  common.TFDCG.idx <- as.character(tfbridgedDCL$common.TF) %in% as.character(DCGs[DCGs[,'DCGisTF'],'DCG'])
+  tfbridgedDCL$common.TFisDCG[common.TFDCG.idx]<-TRUE
+  tfbridgedDCL<-data.frame(common.TFinexprs=FALSE,tfbridgedDCL)
+  common.TF.exprsid <- as.character(tfbridgedDCL$common.TF) %in% TFinexpression
+  tfbridgedDCL$common.TFinexprs[common.TF.exprsid]<-TRUE
+  Pairs <- as.character(paste(tfbridgedDCL$Gene.1,tfbridgedDCL$Gene.2,sep='; '))
+  Pairs.factor <- factor(Pairs,levels=unique(Pairs),ordered=T)
+  commonTF <- as.character(unlist( by(tfbridgedDCL$common.TF,Pairs.factor,paste,collapse='; ')  ))        
+  commonTF <- data.frame(pairID=levels(Pairs.factor),common.TF=commonTF)
+  DCL.pairID <- paste(DCLs$Gene.1,DCLs$Gene.2,sep='; ')
+  DCLs <- data.frame(pairID=DCL.pairID,DCLs)
+  DCLs <- merge(commonTF,DCLs,by.x='pairID',by.y='pairID',all.y=T)
+  DRGs<-DCGs[DCGs[,'DCGisTF'] | !is.na(DCGs[,'Upstream_TFofDCG']),]
+  DRLs<-DCLs[!is.na(DCLs[,'common.TF']) | !is.na(DCLs[,'internal.TF']),]	
+  list(DCGs=DCGs, DCLs=DCLs, DRGs=DRGs, DRLs=DRLs, DCG2TF=DCG2TF, TF_bridged_DCL=tfbridgedDCL)
+}
