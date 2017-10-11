@@ -2,7 +2,7 @@
 % Please edit documentation in R/diffcoexp.R
 \name{rFilter}
 \alias{rFilter}
-\title{A rFilter Function}
+\title{Identification of co-expressed gene pairs}
 \usage{
 rFilter(exprs.1, exprs.2, rth = 0.5, qth = 0.1, r.method = c("pearson",
   "spearman")[1], q.method = c("BH", "holm", "hochberg", "hommel",
@@ -16,11 +16,15 @@ rFilter(exprs.1, exprs.2, rth = 0.5, qth = 0.1, r.method = c("pearson",
 \item{rth}{the cutoff of r; must be within [0,1].}
 
 \item{qth}{the cutoff of q-value; must be within [0,1].}
+
+\item{r.method}{a character string specifying the method to be used to calculate correlation coefficients.}
+
+\item{q.method}{method for adjusting p values.}
 }
 \description{
 This function is used to identify coexpressed links (gene pairs) in either condition 1 or condition 2.
 }
 \examples{
-rFilter()
+#rFilter()
 }
 \keyword{coexpression}

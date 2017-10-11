@@ -2,3 +2,7 @@
 
 export(diffcoexp)
 export(rFilter)
+importFrom(stats,cor)
+importFrom(stats,p.adjust)
+importFrom(stats,pbinom)
+importFrom(stats,pt)

@@ -2,22 +2,36 @@
 % Please edit documentation in R/diffcoexp.R
 \name{diffcoexp}
 \alias{diffcoexp}
-\title{A diffcoexp Function}
+\title{Differential Co-expression Analysis}
 \usage{
 diffcoexp(exprs.1, exprs.2, rth = 0.5, qth = 0.1, r.diffth = 0.5,
-  q.diffth = 0.1, q.dcgth = 0.1, r.method = c("pearson", "spearman")[1],
-  q.method = c("BH", "holm", "hochberg", "hommel", "bonferroni", "BY",
-  "fdr")[1])
+  q.diffth = 0.1, q.dcgth = 0.1, r.method = c("pearson", "kendall",
+  "spearman")[1], q.method = c("BH", "holm", "hochberg", "hommel",
+  "bonferroni", "BY", "fdr")[1])
 }
 \arguments{
 \item{exprs.1}{a data frame or matrix for condition 1, with rows as variables (genes) and columns as samples.}
 
 \item{exprs.2}{a data frame or matrix for condition 2, with rows as variables (genes) and columns as samples.}
+
+\item{rth}{the cutoff of r; must be within [0,1].}
+
+\item{qth}{the cutoff of q-value (adjusted p value); must be within [0,1].}
+
+\item{r.diffth}{the cutoff of absolute value of the difference between the correlation coefficients of the two conditions; must be within [0,1].}
+
+\item{q.diffth}{the cutoff of q-value (adjusted p value) of the difference between the correlation coefficients of the two conditions; must be within [0,1].}
+
+\item{q.dcgth}{the cutoff of q-value (adjusted p value) of the genes enriched in the differentilly correlated gene pairs between the two conditions; must be within [0,1].}
+
+\item{r.method}{a character string specifying the method to be used to calculate correlation coefficients.}
+
+\item{q.method}{method for adjusting p values.}
 }
 \description{
 This function is used to identify differentially coexpressed links (gene pairs) and enriched genes.
 }
 \examples{
-diffcoexp()
+#diffcoexp()
 }
 \keyword{coexpression}
