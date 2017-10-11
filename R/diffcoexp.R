@@ -1,13 +1,22 @@
-
-library(DiffCorr)
-library(WGCNA)
-library(psych)
 r2p<-function(r, n) {
 	t<-r*sqrt((n-2)/(1-r^2))
 	p.value <- 2*pt(-abs(t), n-2)
     return(p.value)
 }
 
+#' Calculation of correlation coefficients
+#'
+#' This function is used to calculate correlation coefficients of gene pairs in condition 1 and condition 2 and compare them using Fisher's Z-transformation.
+#' @param exprs.1 a data frame or matrix for condition 1, with rows as variables (genes) and columns as samples.
+#' @param exprs.2 a data frame or matrix for condition 2, with rows as variables (genes) and columns as samples.
+#' @param r.method a character string specifying the method to be used to calculate correlation coefficients.
+#' @keywords coexpression
+#' @importFrom DiffCorr compcorr
+#' @importFrom WGCNA cor
+#' @importFrom psych count.pairwise
+#' @export
+#' @examples
+#' #rFilter()
 "diffcorcalc" <-function(exprs.1, exprs.2, r.method=c('pearson','spearman')[1]) {
     if(!all(rownames(exprs.1)==rownames(exprs.2))) {
         stop("rownames of two expression matrices must be the same!")
@@ -62,7 +71,7 @@ r2p<-function(r, n) {
 #' @param r.method a character string specifying the method to be used to calculate correlation coefficients.
 #' @param q.method method for adjusting p values.
 #' @keywords coexpression
-#' @importFrom stats cor p.adjust pbinom pt
+#' @importFrom stats p.adjust pbinom pt
 #' @export
 #' @examples
 #' #rFilter()
@@ -97,6 +106,7 @@ r2p<-function(r, n) {
 #' @param r.method a character string specifying the method to be used to calculate correlation coefficients.
 #' @param q.method method for adjusting p values.
 #' @keywords coexpression
+#' @importFrom  igraph graph.data.frame
 #' @export
 #' @examples
 #' #diffcoexp()
