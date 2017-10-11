@@ -1,8 +1,3 @@
-######################################################################################
-## exprs.1 a data frame or matrix for condition A, with rows as variables (genes) and columns as samples.
-## exprs.2 a data frame or matrix for condition B, with rows as variables (genes) and columns as samples.
-## qth the cutoff of q-value; must be within [0,1].
-######################################################################################
 library(DiffCorr)
 library(WGCNA)
 library(psych)
@@ -56,6 +51,17 @@ r2p<-function(r, n) {
     return(res)
 }
 
+#' A rFilter Function
+#'
+#' This function is used to identify coexpressed links (gene pairs) in either condition 1 or condition 2.
+#' @param exprs.1 a data frame or matrix for condition 1, with rows as variables (genes) and columns as samples.
+#' @param exprs.2 a data frame or matrix for condition 2, with rows as variables (genes) and columns as samples.
+#' @param rth the cutoff of r; must be within [0,1].
+#' @param qth the cutoff of q-value; must be within [0,1].
+#' @keywords coexpression
+#' @export
+#' @examples
+#' rFilter()
 "rFilter"<-function(exprs.1, exprs.2, rth=0.5, qth=0.1,
 	r.method=c('pearson','spearman')[1],
 	q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr")[1]) {
@@ -74,6 +80,15 @@ r2p<-function(r, n) {
 }
 
 #modified from DCe function of DCGL package
+#' A diffcoexp Function
+#'
+#' This function is used to identify differentially coexpressed links (gene pairs) and enriched genes.
+#' @param exprs.1 a data frame or matrix for condition 1, with rows as variables (genes) and columns as samples.
+#' @param exprs.2 a data frame or matrix for condition 2, with rows as variables (genes) and columns as samples.
+#' @keywords coexpression
+#' @export
+#' @examples
+#' diffcoexp()
 "diffcoexp" <-
 function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth=0.1,
 	r.method=c('pearson','spearman')[1],
