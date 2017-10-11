@@ -1,3 +1,4 @@
+
 library(DiffCorr)
 library(WGCNA)
 library(psych)
@@ -51,17 +52,20 @@ r2p<-function(r, n) {
     return(res)
 }
 
-#' A rFilter Function
+#' Identification of co-expressed gene pairs
 #'
 #' This function is used to identify coexpressed links (gene pairs) in either condition 1 or condition 2.
 #' @param exprs.1 a data frame or matrix for condition 1, with rows as variables (genes) and columns as samples.
 #' @param exprs.2 a data frame or matrix for condition 2, with rows as variables (genes) and columns as samples.
 #' @param rth the cutoff of r; must be within [0,1].
 #' @param qth the cutoff of q-value; must be within [0,1].
+#' @param r.method a character string specifying the method to be used to calculate correlation coefficients.
+#' @param q.method method for adjusting p values.
 #' @keywords coexpression
+#' @importFrom stats cor p.adjust pbinom pt
 #' @export
 #' @examples
-#' rFilter()
+#' #rFilter()
 "rFilter"<-function(exprs.1, exprs.2, rth=0.5, qth=0.1,
 	r.method=c('pearson','spearman')[1],
 	q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr")[1]) {
@@ -80,18 +84,25 @@ r2p<-function(r, n) {
 }
 
 #modified from DCe function of DCGL package
-#' A diffcoexp Function
+#' Differential Co-expression Analysis
 #'
 #' This function is used to identify differentially coexpressed links (gene pairs) and enriched genes.
 #' @param exprs.1 a data frame or matrix for condition 1, with rows as variables (genes) and columns as samples.
 #' @param exprs.2 a data frame or matrix for condition 2, with rows as variables (genes) and columns as samples.
+#' @param rth the cutoff of r; must be within [0,1].
+#' @param qth the cutoff of q-value (adjusted p value); must be within [0,1].
+#' @param r.diffth the cutoff of absolute value of the difference between the correlation coefficients of the two conditions; must be within [0,1].
+#' @param q.diffth the cutoff of q-value (adjusted p value) of the difference between the correlation coefficients of the two conditions; must be within [0,1].
+#' @param q.dcgth the cutoff of q-value (adjusted p value) of the genes enriched in the differentilly correlated gene pairs between the two conditions; must be within [0,1].
+#' @param r.method a character string specifying the method to be used to calculate correlation coefficients.
+#' @param q.method method for adjusting p values.
 #' @keywords coexpression
 #' @export
 #' @examples
-#' diffcoexp()
+#' #diffcoexp()
 "diffcoexp" <-
 function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth=0.1,
-	r.method=c('pearson','spearman')[1],
+	r.method=c('pearson', 'kendall', 'spearman')[1],
 	q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr")[1]) {
     if(!all(rownames(exprs.1)==rownames(exprs.2))) {
         stop("rownames of two expression matrices must be the same!")
