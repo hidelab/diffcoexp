@@ -1,7 +1,8 @@
-# diffcoexp
+diffcoexp
+=========
 Differential coexpression analysis
 
-# Installation and removal
+### Installation and removal
 
 To install this package, start R and enter:
 ```R
