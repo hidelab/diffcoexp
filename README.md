@@ -28,7 +28,7 @@ remove.packages("diffcoexp")
 
 This example illustrates the workflow of downloading gene expression data from GEO and identifying differentially coexpressed links (gene pairs) and enriched genes. 
 
-```{r message=FALSE, warnings = FALSE}
+```{r message=FALSE, warning = FALSE}
 library(GEOquery)
 download.file("ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE4nnn/GSE4158/matrix/GSE4158_series_matrix.txt.gz", "GSE4158_series_matrix.txt.gz")
 gse4158 <- getGEO(filename='GSE4158_series_matrix.txt.gz', GSEMatrix=TRUE)
@@ -46,13 +46,16 @@ rownames(exprs)<-exprs$Gene
 exprs<-exprs[, -1]
 ```
 Analysis of all the genes will take about one hour. Here only 500 genes were analysed so that the vignette and the package could be built and installed quickly.
-```{r message=FALSE, warnings = FALSE}
+```{r message=FALSE, warning = FALSE, results = 'hide'}
 exprs<-exprs[c(1:500), ]
 exprs.1<-exprs[, c(1:14)]
 exprs.2<-exprs[, c(15:26)]
 library(diffcoexp)
 allowWGCNAThreads()
 res=diffcoexp(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman" )
+```
+The results are a list of two data frames, one for differentially co-expressed links (DCLs, gene pairs), one for differentially co-expressed genes (DCGs).
+```{r message=FALSE, warning = FALSE}
 str(res)
 sessionInfo()
 ```
