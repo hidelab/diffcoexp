@@ -20,6 +20,13 @@ To install this package, start R and enter:
 library(devtools)
 devtools::install_git("git://github.com/hidelab/diffcoexp.git", branch = "master")
 ```
+The above method does not build and install vignette. To install the package with vignette, enter the following from command line:
+```bash
+git clone https://github.com/hidelab/diffcoexp.git
+R CMD build diffcoexp
+R CMD check diffcoexp_0.0.0.9000.tar.gz
+R CMD INSTALL diffcoexp_0.0.0.9000.tar.gz
+```
 To remove this package, start R and enter:
 ```R
 remove.packages("diffcoexp")
