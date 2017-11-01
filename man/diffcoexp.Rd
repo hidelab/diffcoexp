@@ -31,15 +31,17 @@ diffcoexp(exprs.1, exprs.2, rth = 0.5, qth = 0.1, r.diffth = 0.5,
 \value{
 a list of two data frames.
 
-The DCGs data frame contains the following columns:
+The DCGs data frame contains genes that contribute to differentially correlated links (gene pairs) with q value less than q.dcgth. It has the following columns:
   \item{\code{Gene}}{Gene ID}
   \item{\code{All.links}}{Number of links with the absolute correlation coefficients greater than rth and q value less than qth in at least one condition}
   \item{\code{DC.links}}{Number of links that passed the criteria for All links and the criteria that the absolute differences between the correlation coefficients in the two condition greater than r.diffth and q value less than q.diffth}
   \item{\code{DCL_same}}{Number of subset of DC links with same signed correlation coefficients in both conditions}
   \item{\code{DCL_diff}}{Number of subset of DC links with opposite signed correlation coefficients in two conditions but only one of them with the absolute correlation coefficients greater than rth and q value less than qth}
   \item{\code{DCL_switch}}{Number of subset of DC links with opposite signed correlation coefficients in two conditions and both of them with the absolute correlation coefficients greater than rth and q value less than qth}
+  \item{\code{p}}{p value of having >=DC.links given All.links}
+  \item{\code{q}}{adjusted p value}
 
-The DCLs data frame contains the following columns:
+The DCLs data frame contains the differentially correlated links (gene pairs) that meet the criteria that at least one of their correlation coefficients (cor.1 and/or cor.2) is greater that rth with q value (q.1 and/or q.2) less than qth and the absolute value of the difference between the correlation coefficients under two conditions (cor.diff) is greater than r.diffth with q.diffcor < q.diffth. It has the following columns:
   \item{\code{Gene.1}}{Gene ID}
   \item{\code{Gene.2}}{Gene ID}
   \item{\code{cor.1}}{correlation coefficients in condition 1}
