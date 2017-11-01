@@ -1,103 +1,9 @@
-r2p<-function(r, n) {
-	t<-r*sqrt((n-2)/(1-r^2))
-	p.value <- 2*pt(-abs(t), n-2)
-    return(p.value)
-}
-
-#' Calculation of correlation coefficients
-#'
-#' This function is used to calculate correlation coefficients of gene pairs in condition 1 and condition 2 and compare them using Fisher's Z-transformation.
-#' @param exprs.1 a data frame or matrix for condition 1, with rows as variables (genes) and columns as samples.
-#' @param exprs.2 a data frame or matrix for condition 2, with rows as variables (genes) and columns as samples.
-#' @param r.method a character string specifying the method to be used to calculate correlation coefficients.
-#' @keywords coexpression
-#' @importFrom DiffCorr compcorr
-#' @importFrom WGCNA cor
-#' @importFrom psych count.pairwise
-#' @export
-#' @examples
-#' #rFilter()
-"diffcorcalc" <-function(exprs.1, exprs.2, r.method=c('pearson','spearman')[1]) {
-    if(!all(rownames(exprs.1)==rownames(exprs.2))) {
-        stop("rownames of two expression matrices must be the same!")
-    }
-    genes <- rownames(exprs.1)
-    exprs.1 <- as.matrix(exprs.1)
-    exprs.2 <- as.matrix(exprs.2)
-    if(sum(is.na(exprs.1))==0) {
-        cor.1 <- cor(t(exprs.1), method=r.method, use="all.obs")
-        n.1 <- ncol(exprs.1)
-    } else {
-        cor.1 <- cor(t(exprs.1), method=r.method, use="pairwise.complete.obs")
-        n.1 <-count.pairwise(t(exprs.1))
-        n.1 <- n.1 [lower.tri(n.1, diag=F)]
-    }
-
-    if(sum(is.na(exprs.2))==0) {
-        cor.2 <- cor(t(exprs.2), method=r.method, use="all.obs")
-        n.2 <- ncol (exprs.2)
-    } else {
-        cor.2 <- cor(t(exprs.2), method=r.method, use="pairwise.complete.obs")
-        n.2<-count.pairwise(t(exprs.2))
-        n.2 <- n.2 [lower.tri(n.2, diag=F)]
-    }
-
-    cor.1 <- cor.1[lower.tri(cor.1, diag=F)]
-    cor.2 <- cor.2[lower.tri(cor.2, diag=F)]
-    rm(exprs.1); rm(exprs.2)
-
-    name.row <- matrix(rep(genes,length(genes)),length(genes),length(genes))
-    name.col <- matrix(rep(genes,length(genes)),length(genes),length(genes),byrow=T)
-    name.pairs <- matrix(paste(name.row,name.col,sep=','),length(genes),length(genes))
-    rm(list=c('name.row','name.col'))
-    name.pairs <- name.pairs[lower.tri(name.pairs,diag=F)]
-    names(cor.1) <- names(cor.2) <- name.pairs
-
-    p.1 <- r2p(cor.1, n.1)
-    p.2 <- r2p(cor.2, n.2)
-
-    dc<-compcorr(n.1, cor.1, n.2, cor.2)
-    res <- data.frame(cor.1 = cor.1, cor.2 = cor.2, p.1=p.1, p.2=p.2, p.diffcor=dc$pval)
-    return(res)
-}
-
-#' Identification of co-expressed gene pairs
-#'
-#' This function is used to identify coexpressed links (gene pairs) in either condition 1 or condition 2.
-#' @param exprs.1 a data frame or matrix for condition 1, with rows as variables (genes) and columns as samples.
-#' @param exprs.2 a data frame or matrix for condition 2, with rows as variables (genes) and columns as samples.
-#' @param rth the cutoff of r; must be within [0,1].
-#' @param qth the cutoff of q-value; must be within [0,1].
-#' @param r.method a character string specifying the method to be used to calculate correlation coefficients.
-#' @param q.method method for adjusting p values.
-#' @keywords coexpression
-#' @importFrom stats p.adjust pbinom pt
-#' @export
-#' @examples
-#' #rFilter()
-"rFilter"<-function(exprs.1, exprs.2, rth=0.5, qth=0.1,
-	r.method=c('pearson','spearman')[1],
-	q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr")[1]) {
-    if(!all(rownames(exprs.1)==rownames(exprs.2))) {
-        stop("rownames of two expression matrices must be the same!")
-    }
-    x<-diffcorcalc(exprs.1, exprs.2, r.method=r.method)
-	if (!is.null(x)) {
-		print("Finished running diffcorcalc.")
-	}
-    x$q.1<-p.adjust(x$p.1, method=q.method)
-    x$q.2<-p.adjust(x$p.2, method=q.method)
-    x<-subset(x, subset=(abs(cor.1) > rth & q.1 < qth))
-    x<-subset(x, subset=(abs(cor.2) > rth & q.2 < qth))
-    return(x)
-}
-
 #modified from DCe function of DCGL package
-#' Differential Co-expression Analysis
+#' Differential co-expression analysis
 #'
 #' This function is used to identify differentially coexpressed links (gene pairs) and enriched genes.
-#' @param exprs.1 a data frame or matrix for condition 1, with rows as variables (genes) and columns as samples.
-#' @param exprs.2 a data frame or matrix for condition 2, with rows as variables (genes) and columns as samples.
+#' @param exprs.1 a data frame or matrix for condition 1, with rows as genes and columns as samples.
+#' @param exprs.2 a data frame or matrix for condition 2, with rows as genes and columns as samples.
 #' @param rth the cutoff of r; must be within [0,1].
 #' @param qth the cutoff of q-value (adjusted p value); must be within [0,1].
 #' @param r.diffth the cutoff of absolute value of the difference between the correlation coefficients of the two conditions; must be within [0,1].
@@ -108,6 +14,31 @@ r2p<-function(r, n) {
 #' @keywords coexpression
 #' @importFrom  igraph graph.data.frame
 #' @export
+#' @return a list of two data frames.
+#'
+#' The DCGs data frame contains the following columns:
+#'   \item{\code{Gene}}{Gene ID}
+#'   \item{\code{All.links}}{Number of links with the absolute correlation coefficients greater than rth and q value less than qth in at least one condition}
+#'   \item{\code{DC.links}}{Number of links that passed the criteria for All links and the criteria that the absolute differences between the correlation coefficients in the two condition greater than r.diffth and q value less than q.diffth}
+#'   \item{\code{DCL_same}}{Number of subset of DC links with same signed correlation coefficients in both conditions}
+#'   \item{\code{DCL_diff}}{Number of subset of DC links with opposite signed correlation coefficients in two conditions but only one of them with the absolute correlation coefficients greater than rth and q value less than qth}
+#'   \item{\code{DCL_switch}}{Number of subset of DC links with opposite signed correlation coefficients in two conditions and both of them with the absolute correlation coefficients greater than rth and q value less than qth}
+#'
+#' The DCLs data frame contains the following columns:
+#'   \item{\code{Gene.1}}{Gene ID}
+#'   \item{\code{Gene.2}}{Gene ID}
+#'   \item{\code{cor.1}}{correlation coefficients in condition 1}
+#'   \item{\code{cor.2}}{correlation coefficients in condition 2}
+#'   \item{\code{p.1}}{p value of correlation coefficients in condition 1}
+#'   \item{\code{p.2}}{p value of correlation coefficients in condition 2}
+#'   \item{\code{p.diffcor}}{p value of the test of significance for the difference between two correlation coefficients under two conditions using Fisher’s r-to-Z transformation}
+#'   \item{\code{q.1}}{adjusted p value of correlation coefficients in condition 1}
+#'   \item{\code{q.2}}{adjusted p value of correlation coefficients in condition 2}
+#'   \item{\code{q.diffcor}}{adjusted p value of the test of significance for the difference between two correlation coefficients under two conditions using Fisher’s r-to-Z transformation}
+#'   \item{\code{cor.diff}}{difference between correlation coefficients in condition 2 and condition 1}
+#'   \item{\code{type}}{can have value "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them passed the criteria that the absolute correlation coefficients greater than rth and q value less than qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them passed the criteria that the absolute correlation coefficients greater than rth and q value less than qth.}
+#' @details diffcoexp function takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation, filter the correlation with the rth and qth and the correlation changes with r.diffth and q.diffth.
+#' @author Wenbin Wei
 #' @examples
 #' #diffcoexp()
 "diffcoexp" <-
@@ -147,18 +78,15 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
         cor.filtered<-data.frame(name.all, cor.filtered)
     }
 
-	cor.filtered.1 = cor.filtered$cor.1;
-	cor.filtered.2 = cor.filtered$cor.2;
-
   	#############################################################
   	## decide three sets of correlation pairs and organize them into two-columned matrices.
   	#############################################################
 
-  	idx.same = (cor.filtered.1*cor.filtered.2)>0;
+  	idx.same = (cor.filtered$cor.1 * cor.filtered$cor.2)>0;
 	idx.same[is.na(idx.same)] <- TRUE  ##fixing special cases where cor = NA (caused by at least one constant gene expression vector)
-  	idx.diff = (cor.filtered.1*cor.filtered.2)<0;
+  	idx.diff = (cor.filtered$cor.1 * cor.filtered$cor.2)<0;
 	idx.diff[is.na(idx.diff)] <- FALSE
-  	idx.switched = (cor.filtered.1*cor.filtered.2<0) & ( abs(cor.filtered.1)>=rth & abs(cor.filtered.2)>=rth );
+  	idx.switched = (cor.filtered$cor.1 * cor.filtered$cor.2 <0) & ( abs(cor.filtered$cor.1)>=rth & abs(cor.filtered$cor.2)>=rth & cor.filtered$q.1 < qth & cor.filtered$q.2 < qth);
 	idx.switched[is.na(idx.switched)] <- FALSE
 
     cor.same = cor.filtered[idx.same,]
@@ -187,8 +115,8 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
     n.diffDCL = 0
     if(nrow(cor.diff)>1){
 		de.d = cor.diff$q.diffcor < q.diffth & abs(cor.diff$cor.diff) > r.diffth
-		DCL.diff = cor.diff[de.d, c("Gene.1","Gene.2")]
-		name.diff = DCL.diff[,]
+		DCL.diff = cor.diff[de.d, ]
+		name.diff = DCL.diff[, c("Gene.1","Gene.2")]
   		n.diffDCL = nrow(DCL.diff)
 	} else {
         DCL.diff = NULL
@@ -296,6 +224,8 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
  	DCGs <- degree.bind[middle,]
 	DCGs <- as.data.frame(DCGs)
 	DCGs <- subset(DCGs, subset= q < q.dcgth)
+	DCGs <- cbind(Gene=as.character(rownames(DCGs)), DCGs)
+	DCGs$Gene <- as.character(DCGs$Gene)
 
  #########################################################
     DCLs=data.frame()
@@ -311,19 +241,22 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
         DCLs <- rbind(DCLs, data.frame(DCL.switched, type='switched opposites'))
     }
 
+	DCLs$Gene.1 <-as.character(DCLs$Gene.1)
+	DCLs$Gene.2 <-as.character(DCLs$Gene.2)
+
  	Result <- list(DCGs=DCGs,DCLs=DCLs)
 	return(Result)
 }
 
 "emptyresult"<-function() {
-	DCGs = matrix(0,0, 7)
-	colnames(DCGs) = c("All.links", "DC.links", "DCL.same", "DCL.diff",
+	DCGs = matrix(0,0, 8)
+	colnames(DCGs) = c("Gene", "All.links", "DC.links", "DCL.same", "DCL.diff",
 	"DCL.switched", "p", "q")
 	DCGs<-as.data.frame (DCGs)
 	DCLs = matrix(0,0,12)
 	colnames(DCLs) <- c("Gene.1", "Gene.2", "cor.1", "cor.2", "p.1", "p.2",
 	"p.diffcor", "q.1", "q.2", "q.diffcor", "cor.diff", "type" )
-	DCLs = as.data.frame(DCLs)
+	DCLs = as.data.frame(DCLs, stringsAsFactors =FALSE)
 	Result <- list(DCGs=DCGs,DCLs=DCLs)
 	return(Result)
 }
