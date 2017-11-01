@@ -31,10 +31,10 @@
 #'   \item{\code{cor.2}}{correlation coefficients in condition 2}
 #'   \item{\code{p.1}}{p value of correlation coefficients in condition 1}
 #'   \item{\code{p.2}}{p value of correlation coefficients in condition 2}
-#'   \item{\code{p.diffcor}}{p value of the test of significance for the difference between two correlation coefficients under two conditions using Fisher’s r-to-Z transformation}
+#'   \item{\code{p.diffcor}}{p value of the test of significance for the difference between two correlation coefficients under two conditions using Fisher's r-to-Z transformation}
 #'   \item{\code{q.1}}{adjusted p value of correlation coefficients in condition 1}
 #'   \item{\code{q.2}}{adjusted p value of correlation coefficients in condition 2}
-#'   \item{\code{q.diffcor}}{adjusted p value of the test of significance for the difference between two correlation coefficients under two conditions using Fisher’s r-to-Z transformation}
+#'   \item{\code{q.diffcor}}{adjusted p value of the test of significance for the difference between two correlation coefficients under two conditions using Fisher's r-to-Z transformation}
 #'   \item{\code{cor.diff}}{difference between correlation coefficients in condition 2 and condition 1}
 #'   \item{\code{type}}{can have value "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them passed the criteria that the absolute correlation coefficients greater than rth and q value less than qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them passed the criteria that the absolute correlation coefficients greater than rth and q value less than qth.}
 #' @details diffcoexp function takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation, filter the correlation with the rth and qth and the correlation changes with r.diffth and q.diffth.
