@@ -59,7 +59,7 @@ The DCLs data frame contains the differentially correlated links (gene pairs) th
 This function is used to identify differentially coexpressed links (gene pairs) and enriched genes.
 }
 \details{
-diffcoexp function takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation, filter the correlation with the rth and qth and the correlation changes with r.diffth and q.diffth.
+diffcoexp function identifies differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions. DCGs are genes with significantly more DCLs than by chance. It takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation, filter the correlation with the rth and qth and the correlation changes with r.diffth and q.diffth.
 }
 \examples{
 #diffcoexp()
