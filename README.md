@@ -4,7 +4,7 @@ Differential coexpression analysis
 
 ## 1. Description
 
-This package identifies differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions (de la Fuente 2010). DCGs are genes with significantly more DCLs than by chance (Yu et al., 2011). It takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation. It filters gene pairs with the thresholds for correlation coefficients and their false discovery rate as well as the thresholds for the absolute value of the difference between the two correlation coefficients and its false discovery rate.
+This package identifies differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions (de la Fuente 2010, Jiang et al., 2016). DCGs are genes with significantly more DCLs than by chance (Yu et al., 2011, Jiang et al., 2016). It takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation. It filters gene pairs with the thresholds for correlation coefficients and their false discovery rate as well as the thresholds for the absolute value of the difference between the two correlation coefficients and its false discovery rate. It identifies DCGs using binomial probability model (Jiang et al., 2016).
 
 ## 2. Installation and removal
 
@@ -62,4 +62,6 @@ sessionInfo()
 ## 4. References
 1. de la Fuente A. From “differential expression” to “differential networking” – identification of dysfunctional regulatory networks in diseases. Trends in Genetics. 2010 Jul;26(7):326–33. 
 
-2. Yu H, Liu B-H, Ye Z-Q, Li C, Li Y-X, Li Y-Y. Link-based quantitative methods to identify differentially coexpressed genes and gene pairs. BMC bioinformatics. 2011;12(1):315. 
+2. Jiang Z, Dong X, Li Z-G, He F, Zhang Z. Differential Coexpression Analysis Reveals Extensive Rewiring of Arabidopsis Gene Coexpression in Response to Pseudomonas syringae Infection. Scientific Reports [Internet]. 2016 Dec [cited 2017 Sep 20];6(1). Available from: http://www.nature.com/articles/srep35064
+
+3. Yu H, Liu B-H, Ye Z-Q, Li C, Li Y-X, Li Y-Y. Link-based quantitative methods to identify differentially coexpressed genes and gene pairs. BMC bioinformatics. 2011;12(1):315. 
