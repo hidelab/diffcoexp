@@ -6,6 +6,16 @@ Differential coexpression analysis
 
 This package identifies differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions (de la Fuente 2010, Jiang et al., 2016). DCGs are genes with significantly more DCLs than by chance (Yu et al., 2011, Jiang et al., 2016). It takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation. It filters gene pairs with the thresholds for correlation coefficients and their false discovery rate as well as the thresholds for the absolute value of the difference between the two correlation coefficients and its false discovery rate. It identifies DCGs using binomial probability model (Jiang et al., 2016).
 
+The main steps are as follows:
+
+a). In this step, gene pairs (links) are filtered using the criteria that al least one of the the correlation coefficients under two conditions having absolute value greater than the threshold and the q value less than the threshold. The links passed the criteria are included in All.links.
+
+b). In this step, gene pairs (links) are furhter filtered using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold and the q value is less than the threshold. The links passed the criter are included in DCLs and DC.links.
+
+c). In this step, the DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them passed the criteria that the absolute correlation coefficients greater than the threshold and q value less than the threshold. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them passed the criteria that the absolute correlation coefficients greater than the threshold and q value less than the threshold.
+
+d). In this step, all the genes in DCLs are tested for their enrichment, i.e, whether they have more DC.links than by chance using binomial probability model (Jiang et al., 2016) 
+
 ## 2. Installation and removal
 
 To install this package, start R and enter:
@@ -45,9 +55,8 @@ exprs<-aggregate(exprs[, -1], by=list(Gene=exprs$ORF), FUN=mean, na.action = na.
 rownames(exprs)<-exprs$Gene
 exprs<-exprs[, -1]
 ```
-Analysis of all the genes will take about one hour. Here only 500 genes were analysed so that the vignette and the package could be built and installed quickly.
+Analysis of all the genes will take about one hour.
 ```R
-exprs<-exprs[c(1:500), ]
 exprs.1<-exprs[, c(1:14)]
 exprs.2<-exprs[, c(15:26)]
 library(diffcoexp)
