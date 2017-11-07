@@ -78,9 +78,9 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
  	m <- nrow(exprs.1) # exprs.1, exprs.2 is the expression data for different conditions.
 	genes = rownames(exprs.1)
 
-	cor.filtered = rFilter(exprs.1, exprs.2, r.method=r.method, rth=rth, qth=qth)
+	cor.filtered = coexpr(exprs.1, exprs.2, r.method=r.method, rth=rth, qth=qth)
 	if(!is.null(cor.filtered)) {
-		print("Finished running rFilter.")
+		print("Finished running coexpr.")
 	}
     cor.filtered$q.diffcor<-p.adjust(cor.filtered$p.diffcor, method=q.method)
     cor.filtered$cor.diff<-cor.filtered$cor.2-cor.filtered$cor.1
@@ -168,21 +168,21 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 ## All links
 ####################################
 	g.all <- graph.data.frame(name.all);
-	gene.all <- as.matrix(V(g.all)$name);
-	degree.all <- degree(g.all);
+	gene.all <- as.matrix(igraph::V(g.all)$name);
+	degree.all <- igraph::degree(g.all);
 #####################################
 ## DCLs
 #####################################
 	g.DCL <- graph.data.frame(name.DCL);
-	gene.1 <- as.matrix(V(g.DCL)$name);
-	degree.DCL <- degree(g.DCL);
+	gene.1 <- as.matrix(igraph::V(g.DCL)$name);
+	degree.DCL <- igraph::degree(g.DCL);
 ######################################
 ##DCLs of same sign
 ######################################
     if(n.sameDCL>0) {
         g.same <- graph.data.frame(name.same);
-	    g.same.name <- as.matrix(V(g.same)$name);
-	    degree.same <- as.matrix(degree(g.same));
+	    g.same.name <- as.matrix(igraph::V(g.same)$name);
+	    degree.same <- as.matrix(igraph::degree(g.same));
     } else {
         degree.same = matrix(0,1,1)
     }
@@ -192,8 +192,8 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 ########################################
     if(n.diffDCL>0) {
 	    g.diff <- graph.data.frame(name.diff);
-	    g.diff.name <- as.matrix(V(g.diff)$name);
-	    degree.diff <- as.matrix(degree(g.diff));
+	    g.diff.name <- as.matrix(igraph::V(g.diff)$name);
+	    degree.diff <- as.matrix(igraph::degree(g.diff));
     } else {
         degree.diff = matrix(0,1,1)
     }
@@ -203,8 +203,8 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 #######################################
 	if(n.switchedDCL>0) {
 		g.switch <- graph.data.frame(name.switched);
-		g.switch.name <- as.matrix(V(g.switch)$name);
-		degree.switch <- as.matrix(degree(g.switch));
+		g.switch.name <- as.matrix(igraph::V(g.switch)$name);
+		degree.switch <- as.matrix(igraph::degree(g.switch));
 	} else {
         degree.switch = matrix(0,1,1)
 	}
