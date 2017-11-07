@@ -18,12 +18,12 @@
 #'
 #' The DCGs data frame contains genes that contribute to differentially correlated links (gene pairs) with q value less than q.dcgth. It has the following columns:
 #'   \item{\code{Gene}}{Gene ID}
-#'   \item{\code{All.links}}{Number of links with the absolute correlation coefficients greater than rth and q value less than qth in at least one condition}
-#'   \item{\code{DC.links}}{Number of links that passed the criteria for All links and the criteria that the absolute differences between the correlation coefficients in the two condition greater than r.diffth and q value less than q.diffth}
-#'   \item{\code{DCL_same}}{Number of subset of DC links with same signed correlation coefficients in both conditions}
-#'   \item{\code{DCL_diff}}{Number of subset of DC links with opposite signed correlation coefficients in two conditions but only one of them with the absolute correlation coefficients greater than rth and q value less than qth}
-#'   \item{\code{DCL_switch}}{Number of subset of DC links with opposite signed correlation coefficients in two conditions and both of them with the absolute correlation coefficients greater than rth and q value less than qth}
-#'   \item{\code{p}}{p value of having >=DC.links given All.links}
+#'   \item{\code{CO.links}}{Number of links with the absolute correlation coefficients greater than rth and q value less than qth in at least one condition}
+#'   \item{\code{DC.links}}{Number of links that passed the criteria for CO.links and the criteria that the absolute differences between the correlation coefficients in the two condition greater than r.diffth and q value less than q.diffth}
+#'   \item{\code{DCL.same}}{Number of subset of DC.links with same signed correlation coefficients in both conditions}
+#'   \item{\code{DCL.diff}}{Number of subset of DC.links with opposite signed correlation coefficients in two conditions but only one of them with the absolute correlation coefficients greater than rth and q value less than qth}
+#'   \item{\code{DCL.switch}}{Number of subset of DC.links with opposite signed correlation coefficients in two conditions and both of them with the absolute correlation coefficients greater than rth and q value less than qth}
+#'   \item{\code{p}}{p value of having >=DC.links given CO.links}
 #'   \item{\code{q}}{adjusted p value}
 #'
 #' The DCLs data frame contains the differentially correlated links (gene pairs) that meet the criteria that at least one of their correlation coefficients (cor.1 and/or cor.2) is greater that rth with q value (q.1 and/or q.2) less than qth and the absolute value of the difference between the correlation coefficients under two conditions (cor.diff) is greater than r.diffth with q.diffcor < q.diffth. It has the following columns:
@@ -31,21 +31,21 @@
 #'   \item{\code{Gene.2}}{Gene ID}
 #'   \item{\code{cor.1}}{correlation coefficients in condition 1}
 #'   \item{\code{cor.2}}{correlation coefficients in condition 2}
-#'   \item{\code{p.1}}{p value of correlation coefficients in condition 1}
-#'   \item{\code{p.2}}{p value of correlation coefficients in condition 2}
-#'   \item{\code{p.diffcor}}{p value of the test of significance for the difference between two correlation coefficients under two conditions using Fisher's r-to-Z transformation}
-#'   \item{\code{q.1}}{adjusted p value of correlation coefficients in condition 1}
-#'   \item{\code{q.2}}{adjusted p value of correlation coefficients in condition 2}
-#'   \item{\code{q.diffcor}}{adjusted p value of the test of significance for the difference between two correlation coefficients under two conditions using Fisher's r-to-Z transformation}
+#'   \item{\code{p.1}}{p value under null hypothesis that correlation coefficient in condition 1 equals to zero}
+#'   \item{\code{p.2}}{p value under null hypothesis that correlation coefficient in condition 2 equals to zero}
+#'   \item{\code{p.diffcor}}{p value under null hypothesis that difference between two correlation coefficients under two conditions equals to zero using Fisher's r-to-Z transformation}
+#'   \item{\code{q.1}}{adjusted p value under null hypothesis that correlation coefficient in condition 1 equals to zero}
+#'   \item{\code{q.2}}{adjusted p value under null hypothesis that correlation coefficient in condition 2 equals to zero}
+#'   \item{\code{q.diffcor}}{adjusted p value under null hypothesis that the difference between two correlation coefficients under two conditions equals to zero using Fisher's r-to-Z transformation}
 #'   \item{\code{cor.diff}}{difference between correlation coefficients in condition 2 and condition 1}
 #'   \item{\code{type}}{can have value "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them passed the criteria that the absolute correlation coefficients greater than rth and q value less than qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them passed the criteria that the absolute correlation coefficients greater than rth and q value less than qth.}
 #' @details diffcoexp function identifies differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions (de la Fuente 2010, Jiang et al., 2016). DCGs are genes with significantly more DCLs than by chance (Yu et al., 2011, Jiang et al., 2016). It takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation, filter the correlation with the rth and qth and the correlation changes with r.diffth and q.diffth. It identifies DCGs using binomial probability model (Jiang et al., 2016).
 #'
 #' The main steps are as follows:
 #'
-#' a). In this step, gene pairs (links) are filtered using the criteria that at least one of the the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links passed the criteria are included in All.links.
+#' a). In this step, gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links passed the criteria are included in CO.links.
 #'
-#' b). In this step, gene pairs (links) are furhter filtered using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links passed the criteria are included in DCLs and DC.links.
+#' b). In this step, differentially coexpressed gene pairs (links) are identified from CO.links using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links passed the criteria are included in DCLs and DC.links.
 #'
 #' c). In this step, the DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them passed the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them passed the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth.
 #'
@@ -78,38 +78,38 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
  	m <- nrow(exprs.1) # exprs.1, exprs.2 is the expression data for different conditions.
 	genes = rownames(exprs.1)
 
-	cor.filtered = coexpr(exprs.1, exprs.2, r.method=r.method, rth=rth, qth=qth)
-	if(!is.null(cor.filtered)) {
+	colinks = coexpr(exprs.1, exprs.2, r.method=r.method, rth=rth, qth=qth)
+	if(!is.null(colinks)) {
 		print("Finished running coexpr.")
 	}
-    cor.filtered$q.diffcor<-p.adjust(cor.filtered$p.diffcor, method=q.method)
-    cor.filtered$cor.diff<-cor.filtered$cor.2-cor.filtered$cor.1
+    colinks$q.diffcor<-p.adjust(colinks$p.diffcor, method=q.method)
+    colinks$cor.diff<-colinks$cor.2-colinks$cor.1
 
     # use strsplit to get two-column edge specification.
-    if ( nrow(cor.filtered)==0 ) {
+    if ( nrow(colinks)==0 ) {
 		Result <- emptyresult()
 		return(Result)
     } else {
-        name.all = strsplit(rownames(cor.filtered), ',')
-        name.all = matrix(unlist(name.all), length(name.all),2,byrow=T)
-        colnames(name.all) <- c("Gene.1", "Gene.2")
-        cor.filtered<-data.frame(name.all, cor.filtered)
+        name.colinks = strsplit(rownames(colinks), ',')
+        name.colinks = matrix(unlist(name.colinks), length(name.colinks),2,byrow=T)
+        colnames(name.colinks) <- c("Gene.1", "Gene.2")
+        colinks<-data.frame(name.colinks, colinks)
     }
 
   	#############################################################
   	## decide three sets of correlation pairs and organize them into two-columned matrices.
   	#############################################################
 
-  	idx.same = (cor.filtered$cor.1 * cor.filtered$cor.2)>0;
-	idx.same[is.na(idx.same)] <- TRUE  ##fixing special cases where cor = NA (caused by at least one constant gene expression vector)
-  	idx.diff = (cor.filtered$cor.1 * cor.filtered$cor.2)<0;
+  	idx.same = (colinks$cor.1 * colinks$cor.2)>0;
+	idx.same[is.na(idx.same)] <- TRUE
+  	idx.diff = (colinks$cor.1 * colinks$cor.2)<0;
 	idx.diff[is.na(idx.diff)] <- FALSE
-  	idx.switched = (cor.filtered$cor.1 * cor.filtered$cor.2 <0) & ( abs(cor.filtered$cor.1)>=rth & abs(cor.filtered$cor.2)>=rth & cor.filtered$q.1 < qth & cor.filtered$q.2 < qth);
+  	idx.switched = (colinks$cor.1 * colinks$cor.2 <0) & ( abs(colinks$cor.1)>=rth & abs(colinks$cor.2)>=rth & colinks$q.1 < qth & colinks$q.2 < qth);
 	idx.switched[is.na(idx.switched)] <- FALSE
 
-    cor.same = cor.filtered[idx.same,]
-	cor.switched = cor.filtered[idx.switched,]
-  	cor.diff = cor.filtered[idx.diff & (!idx.switched), ]
+    cor.same = colinks[idx.same,]
+	cor.switched = colinks[idx.switched,]
+  	cor.diff = colinks[idx.diff & (!idx.switched), ]
 
     name.same = NULL
     name.switched = NULL
@@ -119,8 +119,8 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
   #############################################################
     n.sameDCL = 0
     if(nrow(cor.same)>1){
-		de.s = cor.same$q.diffcor < q.diffth & abs(cor.same$cor.diff) > r.diffth
-		DCL.same = cor.same[de.s,]
+		idx.DCL.same = cor.same$q.diffcor < q.diffth & abs(cor.same$cor.diff) > r.diffth
+		DCL.same = cor.same[idx.DCL.same,]
 		name.same = DCL.same[, c("Gene.1","Gene.2")]
 		n.sameDCL = nrow(DCL.same)
  	} else {
@@ -132,8 +132,8 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
   #############################################################
     n.diffDCL = 0
     if(nrow(cor.diff)>1){
-		de.d = cor.diff$q.diffcor < q.diffth & abs(cor.diff$cor.diff) > r.diffth
-		DCL.diff = cor.diff[de.d, ]
+		idx.DCL.diff = cor.diff$q.diffcor < q.diffth & abs(cor.diff$cor.diff) > r.diffth
+		DCL.diff = cor.diff[idx.DCL.diff, ]
 		name.diff = DCL.diff[, c("Gene.1","Gene.2")]
   		n.diffDCL = nrow(DCL.diff)
 	} else {
@@ -145,8 +145,8 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 ################################################################################################
 	n.switchedDCL = 0
     if(nrow(cor.switched)>1){
-        de.switched = cor.switched$q.diffcor < q.diffth & abs(cor.switched$cor.diff) > r.diffth
-        DCL.switched = cor.switched[de.switched,]
+        idx.DCL.switched = cor.switched$q.diffcor < q.diffth & abs(cor.switched$cor.diff) > r.diffth
+        DCL.switched = cor.switched[idx.DCL.switched,]
         name.switched = DCL.switched[, c("Gene.1","Gene.2")]
         n.switchedDCL = nrow(DCL.switched)
     } else {
@@ -154,7 +154,7 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
     }
 
     n.DCL <- n.sameDCL + n.diffDCL + n.switchedDCL
-    print(paste(nrow(cor.filtered), "gene pairs remain after half thresholding."))
+    print(paste(nrow(colinks), "gene pairs remain after half thresholding."))
     if (n.DCL == 0) {
         print("No DCL meets the thresholds!")
 		Result <- emptyresult()
@@ -165,16 +165,16 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 	name.DCL=rbind(name.same, name.diff, name.switched);
 
 ####################################
-## All links
+## colinks
 ####################################
-	g.all <- graph.data.frame(name.all);
-	gene.all <- as.matrix(igraph::V(g.all)$name);
-	degree.all <- igraph::degree(g.all);
+	g.colinks <- graph.data.frame(name.colinks);
+	g.colinks.name <- as.matrix(igraph::V(g.colinks)$name);
+	degree.colinks <- igraph::degree(g.colinks);
 #####################################
 ## DCLs
 #####################################
 	g.DCL <- graph.data.frame(name.DCL);
-	gene.1 <- as.matrix(igraph::V(g.DCL)$name);
+	g.DCL.name <- as.matrix(igraph::V(g.DCL)$name);
 	degree.DCL <- igraph::degree(g.DCL);
 ######################################
 ##DCLs of same sign
@@ -214,10 +214,10 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 #######################################
 	degree.bind <- matrix(0,m,5)
 	row.names(degree.bind) <- genes
-	colnames(degree.bind) <- c("All.links", "DC.links", "DCL.same", "DCL.diff", "DCL.switched")
+	colnames(degree.bind) <- c("CO.links", "DC.links", "DCL.same", "DCL.diff", "DCL.switched")
 
-	degree.bind[gene.all,1]=degree.all
-	degree.bind[gene.1,2]=degree.DCL
+	degree.bind[g.colinks.name,1]=degree.colinks
+	degree.bind[g.DCL.name,2]=degree.DCL
     if(n.sameDCL>0) {
 	    degree.bind[g.same.name,3]=degree.same
     }
@@ -231,12 +231,12 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 ########################################################
 ## DCGs Identification
 ########################################################
- 	prob <- nrow(name.DCL)/nrow(name.all)
-	p.value <- pbinom(degree.bind[,'DC.links']-1, degree.bind[,'All.links'], prob, lower.tail = F, log.p = FALSE);
+ 	prob <- nrow(name.DCL)/nrow(name.colinks)
+	p.value <- pbinom(degree.bind[,'DC.links']-1, degree.bind[,'CO.links'], prob, lower.tail = F, log.p = FALSE);
  	q.value <- p.adjust(p.value, method=q.method);
 
  	degree.bind <- cbind(degree.bind, p.value, q.value)
- 	colnames(degree.bind) <- c("All.links","DC.links","DCL_same","DCL_diff","DCL_switch","p","q")
+ 	colnames(degree.bind) <- c("CO.links","DC.links","DCL.same","DCL.diff","DCL.switch","p","q")
 
  	middle <-sort(as.numeric(degree.bind[,'q']), method = "quick", decreasing=FALSE,index.return=TRUE)$ix
  	DCGs <- degree.bind[middle,]
@@ -268,7 +268,7 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 
 "emptyresult"<-function() {
 	DCGs = matrix(0,0, 8)
-	colnames(DCGs) = c("Gene", "All.links", "DC.links", "DCL.same", "DCL.diff",
+	colnames(DCGs) = c("Gene", "CO.links", "DC.links", "DCL.same", "DCL.diff",
 	"DCL.switched", "p", "q")
 	DCGs<-as.data.frame (DCGs)
 	DCLs = matrix(0,0,12)
