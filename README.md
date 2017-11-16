@@ -40,9 +40,8 @@ This example illustrates the workflow of downloading gene expression data from G
 
 ```R
 library(GEOquery)
-download.file("ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE4nnn/GSE4158/matrix/GSE4158_series_matrix.txt.gz", "GSE4158_series_matrix.txt.gz")
-gse4158 <- getGEO(filename='GSE4158_series_matrix.txt.gz', GSEMatrix=TRUE)
-exprs<-exprs(gse4158)
+gse4158 <- getGEO("GSE4158")
+exprs<-exprs(gse4158[[1]])
 keep<-rowSums(is.na(exprs)) < ncol(exprs)/5
 exprs<-exprs[keep,]
 dim(exprs)
