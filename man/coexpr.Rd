@@ -56,7 +56,7 @@ d). In this step, all the genes in DCLs are tested for their enrichment, i.e, wh
 #rFilter()
 }
 \references{
-1. de la Fuente A. From “differential expression” to “differential networking” – identification of dysfunctional regulatory networks in diseases. Trends in Genetics. 2010 Jul;26(7):326–33.
+1. de la Fuente A. From “differential expression” to “differential networking” – identification of dysfunctional regulatory networks in diseases. Trends in Genetics. 2010 Jul;26(7):326-33.
 
 2. Jiang Z, Dong X, Li Z-G, He F, Zhang Z. Differential Coexpression Analysis Reveals Extensive Rewiring of Arabidopsis Gene Coexpression in Response to Pseudomonas syringae Infection. Scientific Reports [Internet]. 2016 Dec [cited 2017 Sep 20];6(1). Available from: http://www.nature.com/articles/srep35064
 
