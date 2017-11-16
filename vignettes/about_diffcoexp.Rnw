@@ -8,7 +8,7 @@
 \maketitle
 \tableofcontents
 \section{Description}
-This package identifies differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions (de la Fuente 2010, Jiang et al., 2016). DCGs are genes with significantly more DCLs than by chance (Yu et al., 2011, Jiang et al., 2016). It takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation. It filters gene pairs with the thresholds for correlation coefficients and their adjusted p value as well as the thresholds for the absolute value of the difference between the two correlation coefficients and its adjusted p value. It identifies DCGs using binomial probability model (Jiang et al., 2016).\\
+This package identifies differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions (de la Fuente 2010, Jiang et al., 2016). DCGs are genes with significantly more DCLs than by chance (Yu et al., 2011, Jiang et al., 2016). It takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation. It filters gene pairs with the thresholds for correlation coefficients and their adjusted p value as well as the thresholds for the absolute value of the difference between the two correlation coefficients and its adjusted p value. It identifies DCGs using binomial probability model (Jiang et al., 2016).\smallskip
 
 \noindent
 The main steps are as follows:
@@ -25,7 +25,7 @@ d). In this step, all the genes in DCLs are tested for their enrichment, i.e, wh
 To install this package, start R and enter: \par
 library(devtools) \par
 devtools::install\_git("git://github.com/hidelab/diffcoexp.git", \par
-    branch = "master") \\
+    branch = "master") \smallskip
 \par
 \noindent
 The above method does not build and install vignette. To install the package with vignette, enter the following from command line: \par
@@ -33,7 +33,7 @@ The above method does not build and install vignette. To install the package wit
 git clone https://github.com/hidelab/diffcoexp.git \par
 R CMD build diffcoexp \par
 R CMD check diffcoexp\_0.0.0.9000.tar.gz \par
-R CMD INSTALL diffcoexp\_0.0.0.9000.tar.gz \\
+R CMD INSTALL diffcoexp\_0.0.0.9000.tar.gz \smallskip
 \par
 \noindent
 To remove this package, start R and enter: \par
@@ -41,7 +41,7 @@ To remove this package, start R and enter: \par
 @
 remove.packages("diffcoexp")
 \section{Example}
-This example illustrates the identification of differentially coexpressed links (gene pairs) and differentially coexpressed genes of yeast after pulses of 2 g/l and 0.2 g/l glucose separately. The data were downloaded from GEO (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE4158). Only 200 genes were analysed in this example. Analysis of all the genes will take about one hour.
+This example illustrates the identification of differentially coexpressed links (gene pairs) and differentially coexpressed genes of yeast after pulses of 2 g/l and 0.2 g/l glucose separately. The data were downloaded from GEO (GSE4158). Only 200 genes were analysed in this example. Analysis of all the genes will take about one hour.
 <<results=hide>>=
 library(diffcoexp)
 data(exprs4158)
