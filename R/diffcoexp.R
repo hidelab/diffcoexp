@@ -67,7 +67,7 @@
 "diffcoexp" <-
 function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth=0.1,
 	r.method=c('pearson', 'kendall', 'spearman')[1],
-	q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr")[1]) {
+	q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr", "none")[1]) {
     if(!all(rownames(exprs.1)==rownames(exprs.2))) {
         stop("rownames of two expression matrices must be the same!")
     }
@@ -87,7 +87,7 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 	if(!is.null(colinks)) {
 		print("Finished running coexpr.")
 	}
-    colinks$q.diffcor<-p.adjust(colinks$p.diffcor, method=q.method)
+    #colinks$q.diffcor<-p.adjust(colinks$p.diffcor, method=q.method)
     colinks$cor.diff<-colinks$cor.2-colinks$cor.1
 
     # use strsplit to get two-column edge specification.

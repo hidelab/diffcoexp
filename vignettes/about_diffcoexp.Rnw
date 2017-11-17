@@ -1,7 +1,7 @@
 %\VignetteIndexEntry{About diffcoexp}
 \documentclass{article}
 \title{About diffcoexp}
-\date{2017-10-26}
+\date{2017-11-17}
 \author{Wenbin Wei}
 \begin{document}
 \SweaveOpts{concordance=TRUE}
