@@ -19,7 +19,7 @@
 #' The DCGs data frame contains genes that contribute to differentially correlated links (gene pairs) with q value less than q.dcgth. It has the following columns:
 #'   \item{\code{Gene}}{Gene ID}
 #'   \item{\code{CO.links}}{Number of links with the absolute correlation coefficients greater than rth and q value less than qth in at least one condition}
-#'   \item{\code{DC.links}}{Number of links that passed the criteria for CO.links and the criteria that the absolute differences between the correlation coefficients in the two condition greater than r.diffth and q value less than q.diffth}
+#'   \item{\code{DC.links}}{Number of links that meet the criteria for CO.links and the criteria that the absolute differences between the correlation coefficients in the two condition greater than r.diffth and q value less than q.diffth}
 #'   \item{\code{DCL.same}}{Number of subset of DC.links with same signed correlation coefficients in both conditions}
 #'   \item{\code{DCL.diff}}{Number of subset of DC.links with opposite signed correlation coefficients in two conditions but only one of them with the absolute correlation coefficients greater than rth and q value less than qth}
 #'   \item{\code{DCL.switch}}{Number of subset of DC.links with opposite signed correlation coefficients in two conditions and both of them with the absolute correlation coefficients greater than rth and q value less than qth}
@@ -38,27 +38,32 @@
 #'   \item{\code{q.2}}{adjusted p value under null hypothesis that correlation coefficient in condition 2 equals to zero}
 #'   \item{\code{q.diffcor}}{adjusted p value under null hypothesis that the difference between two correlation coefficients under two conditions equals to zero using Fisher's r-to-Z transformation}
 #'   \item{\code{cor.diff}}{difference between correlation coefficients in condition 2 and condition 1}
-#'   \item{\code{type}}{can have value "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them passed the criteria that the absolute correlation coefficients greater than rth and q value less than qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them passed the criteria that the absolute correlation coefficients greater than rth and q value less than qth.}
+#'   \item{\code{type}}{can have value "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them meets the criteria that the absolute correlation coefficients greater than rth and q value less than qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them meet the criteria that the absolute correlation coefficients greater than rth and q value less than qth.}
 #' @details diffcoexp function identifies differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions (de la Fuente 2010, Jiang et al., 2016). DCGs are genes with significantly more DCLs than by chance (Yu et al., 2011, Jiang et al., 2016). It takes two gene expression matrices or data frames under two conditions as input, calculates gene-gene correlations under two conditions and compare them with Fisher's Z transformation, filter the correlation with the rth and qth and the correlation changes with r.diffth and q.diffth. It identifies DCGs using binomial probability model (Jiang et al., 2016).
 #'
 #' The main steps are as follows:
 #'
-#' a). In this step, gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links passed the criteria are included in CO.links.
+#' a). In this step, gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links that meet the criteria are included in CO.links.
 #'
-#' b). In this step, differentially coexpressed gene pairs (links) are identified from CO.links using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links passed the criteria are included in DCLs and DC.links.
+#' b). In this step, differentially coexpressed gene pairs (links) are identified from CO.links using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links that meet the criteria are included in DCLs and DC.links.
 #'
-#' c). In this step, the DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them passed the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them passed the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth.
+#' c). In this step, the DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them that meets the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them that meet the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth.
 #'
 #' d). In this step, all the genes in DCLs are tested for their enrichment, i.e, whether they have more DC.links than by chance using binomial probability model (Jiang et al., 2016)
 #' @author Wenbin Wei
 #' @references
 #' 1. de la Fuente A. From "differential expression" to "differential networking" - identification of dysfunctional regulatory networks in diseases. Trends in Genetics. 2010 Jul;26(7):326-33.
 #'
-#' 2. Jiang Z, Dong X, Li Z-G, He F, Zhang Z. Differential Coexpression Analysis Reveals Extensive Rewiring of Arabidopsis Gene Coexpression in Response to Pseudomonas syringae Infection. Scientific Reports [Internet]. 2016 Dec [cited 2017 Sep 20];6(1). Available from: http://www.nature.com/articles/srep35064
+#' 2. Jiang Z, Dong X, Li Z-G, He F, Zhang Z. Differential Coexpression Analysis Reveals Extensive Rewiring of Arabidopsis Gene Coexpression in Response to Pseudomonas syringae Infection. Scientific Reports. 2016 Dec;6(1):35064.
 #'
 #' 3. Yu H, Liu B-H, Ye Z-Q, Li C, Li Y-X, Li Y-Y. Link-based quantitative methods to identify differentially coexpressed genes and gene pairs. BMC bioinformatics. 2011;12(1):315.
 #' @examples
-#' #diffcoexp()
+#' data(exprs4158)
+#' allowWGCNAThreads()
+#' res=diffcoexp(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman")
+#' #The results are a list of two data frames, one for differentially co-expressed
+#' #links (DCLs, gene pairs) and one for differentially co-expressed genes (DCGs).
+#' str(res)
 "diffcoexp" <-
 function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth=0.1,
 	r.method=c('pearson', 'kendall', 'spearman')[1],
