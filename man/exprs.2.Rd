@@ -4,12 +4,12 @@
 \name{exprs.2}
 \alias{exprs.2}
 \title{exprs.1}
-\format{A data frame with 200 genes and 12 samples.}
+\format{A data frame with 500 genes and 12 samples.}
 \usage{
 exprs.2
 }
 \description{
-expression of 200 genes in 14 samples (GSM94988 to GSM95001) of yeast after pulses
+expression of 500 genes in 14 samples (GSM94988 to GSM95001) of yeast after pulses
 0.2 g/l glucose, \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE4158}.
 }
 \keyword{datasets}

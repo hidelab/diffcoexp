@@ -162,10 +162,10 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
     print(paste(nrow(colinks), "gene pairs remain after half thresholding."))
     if (n.DCL == 0) {
         print("No DCL meets the thresholds!")
-		Result <- emptyresult()
-		return(Result)
+        Result <- emptyresult()
+        return(Result)
     } else {
-        print(paste(n.DCL, "DCL identified."))
+        print(paste(n.DCL, "DCLs identified."))
     }
 	name.DCL=rbind(name.same, name.diff, name.switched);
 
@@ -249,6 +249,7 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 	DCGs <- subset(DCGs, subset= q < q.dcgth)
 	DCGs <- cbind(Gene=as.character(rownames(DCGs)), DCGs)
 	DCGs$Gene <- as.character(DCGs$Gene)
+	print(paste(length(DCGs$Gene), "DCGs identified."))
 
  #########################################################
     DCLs=data.frame()

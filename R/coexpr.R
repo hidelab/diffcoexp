@@ -40,5 +40,6 @@
     x$q.2<-p.adjust(x$p.2, method=q.method)
     x$q.diffcor <- p.adjust(x$p.diffcor, method=q.method)
     x<-subset(x, subset=( (abs(x$cor.1) > rth & x$q.1 < qth) | (abs(x$cor.2) > rth & x$q.2 < qth)) )
+    x<-data.frame(Gene.Pair=rownames(x), x)
     return(x)
 }

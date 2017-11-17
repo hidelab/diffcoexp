@@ -6,7 +6,7 @@
 \usage{
 coexpr(exprs.1, exprs.2, rth = 0.5, qth = 0.1, r.method = c("pearson",
   "spearman")[1], q.method = c("BH", "holm", "hochberg", "hommel",
-  "bonferroni", "BY", "fdr")[1])
+  "bonferroni", "BY", "fdr", "none")[1])
 }
 \arguments{
 \item{exprs.1}{a data frame or matrix for condition 1, with rows as genes and columns as samples.}
