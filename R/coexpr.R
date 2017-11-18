@@ -29,6 +29,10 @@
 "coexpr"<-function(exprs.1, exprs.2, rth=0.5, qth=0.1,
 	r.method=c('pearson','spearman')[1],
 	q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr", "none")[1]) {
+    exprs.1<-exprs.1[!is.na(rownames(exprs.1)), ]
+    exprs.1<-exprs.1[rownames(exprs.1) != "", ]
+    exprs.2<-exprs.2[!is.na(rownames(exprs.2)), ]
+    exprs.2<-exprs.2[rownames(exprs.2) != "", ]
     if(!all(rownames(exprs.1)==rownames(exprs.2))) {
         stop("rownames of two expression matrices must be the same!")
     }

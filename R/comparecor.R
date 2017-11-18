@@ -13,6 +13,10 @@
 #' @examples
 #' #comparecor()
 "comparecor" <-function(exprs.1, exprs.2, r.method=c('pearson','spearman')[1]) {
+    exprs.1<-exprs.1[!is.na(rownames(exprs.1)), ]
+    exprs.1<-exprs.1[rownames(exprs.1) != "", ]
+    exprs.2<-exprs.2[!is.na(rownames(exprs.2)), ]
+    exprs.2<-exprs.2[rownames(exprs.2) != "", ]
     if(!all(rownames(exprs.1)==rownames(exprs.2))) {
         stop("rownames of two expression matrices must be the same!")
     }
