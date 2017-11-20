@@ -19,7 +19,7 @@ b). The difference between the correlation coefficients  under two conditions ar
 
 c). p values are adjusted.
 
-d). Gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links that meet the criteria are included in CO.links.
+d). Gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links that meet the criteria are included in CO.links.
 
 e). Differentially coexpressed gene pairs (links) are identified from CO.links using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links that meet the criteria are included in DCLs and DC.links.
 
