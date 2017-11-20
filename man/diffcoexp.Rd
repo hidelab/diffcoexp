@@ -63,19 +63,19 @@ diffcoexp function identifies differentially coexpressed links (DCLs) and differ
 
 The main steps are as follows:
 
-a). In this step, correlation coefficients and p values of all gene pairs under two conditions are calculated.
+a). Correlation coefficients and p values of all gene pairs under two conditions are calculated.
 
-b). In this step, the difference between the correlation coefficients  under two conditions are calculated and the p value is calculated using Fisher's Z-transformation.
+b). The difference between the correlation coefficients  under two conditions are calculated and the p value is calculated using Fisher's Z-transformation.
 
-c). In this step, p values are adjusted.
+c). p values are adjusted.
 
-d). In this step, gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links that meet the criteria are included in CO.links.
+d). Gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links that meet the criteria are included in CO.links.
 
-e). In this step, differentially coexpressed gene pairs (links) are identified from CO.links using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links that meet the criteria are included in DCLs and DC.links.
+e). Differentially coexpressed gene pairs (links) are identified from CO.links using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links that meet the criteria are included in DCLs and DC.links.
 
-f). In this step, the DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them meets the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them meet the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth.
+f). The DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them meets the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them meet the criteria that the absolute correlation coefficients greater than the threshold rth and adjusted p value less than the threshold qth.
 
-g). In this step, all the genes in DCLs are tested for their enrichment, i.e, whether they have more DC.links than by chance using binomial probability model (Jiang et al., 2016)
+g). All the genes in DCLs are tested for their enrichment, i.e, whether they have more DC.links than by chance using binomial probability model (Jiang et al., 2016).
 }
 \examples{
 data(exprs4158)
