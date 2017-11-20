@@ -4,22 +4,41 @@
 \alias{comparecor}
 \title{Compare gene-gene correlation coefficients under two conditions}
 \usage{
-comparecor(exprs.1, exprs.2, r.method = c("pearson", "spearman")[1])
+comparecor(exprs.1, exprs.2, r.method = c("pearson", "spearman")[1],
+  q.method = c("BH", "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
+  "none")[1])
 }
 \arguments{
-\item{exprs.1}{a data frame or matrix for condition 1, with rows as genes and columns as samples.}
+\item{exprs.1}{a data frame or matrix for condition 1, with gene IDs as rownames and sample IDs as column names.}
 
-\item{exprs.2}{a data frame or matrix for condition 2, with rows as genes and columns as samples.}
+\item{exprs.2}{a data frame or matrix for condition 2, with gene IDs as rownames and sample IDs as column names.}
 
 \item{r.method}{a character string specifying the method to be used to calculate correlation coefficients.}
+
+\item{q.method}{a character string specifying the method for adjusting p values.}
 }
 \value{
-a data frame
+a data frame containing the differences between the correlation coefficients under two consitions and their p values. It has the following columns:
+  \item{\code{Gene.1}}{Gene ID}
+  \item{\code{Gene.2}}{Gene ID}
+  \item{\code{cor.1}}{correlation coefficients under condition 1}
+  \item{\code{cor.2}}{correlation coefficients under condition 2}
+  \item{\code{cor.diff}}{difference between correlation coefficients under condition 2 and condition 1}
+  \item{\code{p.1}}{p value under null hypothesis that correlation coefficient under condition 1 equals to zero}
+  \item{\code{p.2}}{p value under null hypothesis that correlation coefficient under condition 2 equals to zero}
+  \item{\code{p.diffcor}}{p value under null hypothesis that difference between two correlation coefficients under two conditions equals to zero using Fisher's r-to-Z transformation}
+  \item{\code{q.1}}{adjusted p value under null hypothesis that correlation coefficient under condition 1 equals to zero}
+  \item{\code{q.2}}{adjusted p value under null hypothesis that correlation coefficient under condition 2 equals to zero}
+  \item{\code{q.diffcor}}{adjusted p value under null hypothesis that the difference between two correlation coefficients under two conditions equals to zero using Fisher's r-to-Z transformation}
 }
 \description{
-This function calculates correlation coefficients of gene pairs in condition 1 and condition 2 and compare them using Fisher's Z-transformation.
+This function calculates correlation coefficients of all gene pairs under two conditions and compare them using Fisher's Z-transformation.
 }
 \examples{
-#comparecor()
+data(exprs4158)
+allowWGCNAThreads()
+res=comparecor(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman")
+#The result is a data frames.
+str(res)
 }
 \keyword{coexpression}
