@@ -55,7 +55,7 @@
 #'
 #' f). The DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them meets the criteria that the absolute correlation coefficient is greater than the threshold rth and adjusted p value less than the threshold qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them meet the criteria that the absolute correlation coefficients are greater than the threshold rth and adjusted p value less than the threshold qth.
 #'
-#' g). All the genes in DCLs are tested for their enrichment, i.e, whether they have more DC.links than by chance using binomial probability model (Jiang et al., 2016).
+#' g). All the genes in DCLs are tested for their enrichment of DCLs, i.e, whether they have more DCLs than by chance using binomial probability model (Jiang et al., 2016).Those with adjusted p value less than the threshold q.dcgth are included in DCGs.
 #' @author Wenbin Wei
 #' @references
 #' 1. de la Fuente A. From "differential expression" to "differential networking" - identification of dysfunctional regulatory networks in diseases. Trends in Genetics. 2010 Jul;26(7):326-33.
