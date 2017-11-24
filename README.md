@@ -44,7 +44,7 @@ remove.packages("diffcoexp")
 ```
 ## 3. Example
 
-This example illustrates the workflow of downloading gene expression data from GEO and identifying differentially coexpressed links (gene pairs) and enriched genes. 
+This example illustrates the workflow of downloading gene expression data from GEO and identifying differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). 
 
 ```R
 library(GEOquery)
