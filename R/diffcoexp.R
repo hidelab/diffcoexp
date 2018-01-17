@@ -64,7 +64,7 @@
 #'
 #' 3. Yu H, Liu B-H, Ye Z-Q, Li C, Li Y-X, Li Y-Y. Link-based quantitative methods to identify differentially coexpressed genes and gene pairs. BMC bioinformatics. 2011;12(1):315.
 #' @examples
-#' data(exprs4158)
+#' data(gse4158part)
 #' allowWGCNAThreads()
 #' res=diffcoexp(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman")
 #' #The results are a list of two data frames, one for differentially co-expressed

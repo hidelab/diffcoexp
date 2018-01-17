@@ -23,7 +23,7 @@
 #'   \item{\code{q.diffcor}}{adjusted p value under null hypothesis that the difference between two correlation coefficients under two conditions equals to zero using Fisher's r-to-Z transformation}
 #' @export
 #' @examples
-#' data(exprs4158)
+#' data(gse4158part)
 #' allowWGCNAThreads()
 #' res=comparecor(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman")
 #' #The result is a data frames.
