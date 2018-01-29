@@ -50,7 +50,7 @@ remove.packages("diffcoexp")
 This example illustrates the identification of differentially coexpressed links (gene pairs) and differentially coexpressed genes of yeast after pulses of 2 g/l and 0.2 g/l glucose separately. The data were downloaded from GEO (GSE4158). Only 200 genes were analysed in this example. Analysis of all the genes will take about one hour.
 <<results=hide>>=
 library(diffcoexp)
-data(exprs4158)
+data(gse4158part)
 @
 <<>>=
 allowWGCNAThreads()

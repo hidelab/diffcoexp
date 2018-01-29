@@ -35,7 +35,7 @@ a data frame containing the differences between the correlation coefficients und
 This function calculates correlation coefficients of all gene pairs under two conditions and compare them using Fisher's Z-transformation.
 }
 \examples{
-data(exprs4158)
+data(gse4158part)
 allowWGCNAThreads()
 res=comparecor(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman")
 #The result is a data frames.

@@ -39,7 +39,7 @@ a data frame containing gene pairs that are coexpressed in at least one of the c
 This function identifies gene pairs coexpressed in at least one of two conditions.
 }
 \examples{
-data(exprs4158)
+data(gse4158part)
 allowWGCNAThreads()
 res=coexpr(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman")
 #The result is a data frames.

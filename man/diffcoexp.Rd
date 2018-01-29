@@ -78,7 +78,7 @@ f). The DCLs are classified into three categories: "same signed", "diff signed",
 g). All the genes in DCLs are tested for their enrichment of DCLs, i.e, whether they have more DCLs than by chance using binomial probability model (Jiang et al., 2016). Those with adjusted p value less than the threshold q.dcgth are included in DCGs.
 }
 \examples{
-data(exprs4158)
+data(gse4158part)
 allowWGCNAThreads()
 res=diffcoexp(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman")
 #The results are a list of two data frames, one for differentially co-expressed
