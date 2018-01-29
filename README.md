@@ -62,7 +62,7 @@ exprs<-aggregate(exprs[, -1], by=list(Gene=exprs$ORF), FUN=mean, na.action = na.
 rownames(exprs)<-exprs$Gene
 exprs<-exprs[, -1]
 ```
-Analysis of all the genes will take about one hour.
+Analysis of all the genes (6104) will take about 20 minutes on a computer with 8 cores and 16GB RAM.
 ```R
 exprs.1<-exprs[, c(1:14)]
 exprs.2<-exprs[, c(15:26)]

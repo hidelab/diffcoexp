@@ -47,7 +47,7 @@ To remove this package, start R and enter: \par
 @
 remove.packages("diffcoexp")
 \section{Example}
-This example illustrates the identification of differentially coexpressed links (gene pairs) and differentially coexpressed genes of yeast after pulses of 2 g/l and 0.2 g/l glucose separately. The data were downloaded from GEO (GSE4158). Only 200 genes were analysed in this example. Analysis of all the genes will take about one hour.
+This example illustrates the identification of differentially coexpressed links (gene pairs) and differentially coexpressed genes of yeast after pulses of 2 g/l and 0.2 g/l glucose separately. The data were downloaded from GEO (GSE4158). Only 200 genes were analysed in this example. Analysis of all the genes (6104) will take about 20 minutes on a computer with 8 cores and 16GB RAM.
 <<results=hide>>=
 library(diffcoexp)
 data(gse4158part)
