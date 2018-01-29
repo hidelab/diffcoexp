@@ -45,7 +45,7 @@
     } else {
         cor.1 <- cor(t(exprs.1), method=r.method, use="pairwise.complete.obs")
         n.1 <- count.pairwise(t(exprs.1))
-        n.1 <- n.1[lower.tri(n.1, diag=F)]
+        n.1 <- n.1[lower.tri(n.1, diag=FALSE)]
     }
 
     if(sum(is.na(exprs.2))==0) {
@@ -54,19 +54,19 @@
     } else {
         cor.2 <- cor(t(exprs.2), method=r.method, use="pairwise.complete.obs")
         n.2 <- count.pairwise(t(exprs.2))
-        n.2 <- n.2[lower.tri(n.2, diag=F)]
+        n.2 <- n.2[lower.tri(n.2, diag=FALSE)]
     }
 
-    cor.1 <- cor.1[lower.tri(cor.1, diag=F)]
-    cor.2 <- cor.2[lower.tri(cor.2, diag=F)]
+    cor.1 <- cor.1[lower.tri(cor.1, diag=FALSE)]
+    cor.2 <- cor.2[lower.tri(cor.2, diag=FALSE)]
     rm(exprs.1); rm(exprs.2)
 
     name.row <- matrix(rep(genes, length(genes)), length(genes), length(genes))
-    name.col <- matrix(rep(genes, length(genes)), length(genes), length(genes), byrow=T)
+    name.col <- matrix(rep(genes, length(genes)), length(genes), length(genes), byrow=TRUE)
     name.pairs <- matrix(paste(name.row, name.col, sep=','), length(genes), length(genes))
-    name.pairs <- name.pairs[lower.tri(name.pairs, diag=F)]
-    Gene.1 <- name.row[lower.tri(name.row, diag=F)]
-    Gene.2 <- name.col[lower.tri(name.col, diag=F)]
+    name.pairs <- name.pairs[lower.tri(name.pairs, diag=FALSE)]
+    Gene.1 <- name.row[lower.tri(name.row, diag=FALSE)]
+    Gene.2 <- name.col[lower.tri(name.col, diag=FALSE)]
     names(Gene.1)<-names(Gene.2) <- name.pairs
     rm(list=c('name.row', 'name.col'))
     p.1 <- r2p(cor.1, n.1)

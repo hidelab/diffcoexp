@@ -241,7 +241,7 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 ## DCGs Identification
 ########################################################
  	prob <- nrow(name.DCL)/nrow(name.colinks)
-	p.value <- pbinom(degree.bind[,'DCLs']-1, degree.bind[,'CLs'], prob, lower.tail = F, log.p = FALSE);
+	p.value <- pbinom(degree.bind[,'DCLs']-1, degree.bind[,'CLs'], prob, lower.tail = FALSE, log.p = FALSE);
  	q.value <- p.adjust(p.value, method=q.method);
 
  	degree.bind <- cbind(degree.bind, p.value, q.value)

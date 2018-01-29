@@ -1,13 +1,13 @@
 Package: diffcoexp
 Title: Differential Co-expression Analysis
-Version: 0.0.0.9000
+Version: 0.99.0
 Date: 2017-10-11
 Authors@R: person("Wenbin", "Wei", email = "W.Wei@Sheffield.ac.uk", role = c("aut", "cre"))
 Description: A tool for the analysis of differentially co-expressed gene pairs and enriched genes under two conditions.
 Maintainer: Wenbin Wei <W.Wei@Sheffield.ac.uk>
-Depends: R (>= 3.3.1), DiffCorr, WGCNA, psych, igraph
+Depends: R (>= 3.5), DiffCorr, WGCNA, psych, igraph
 URL: https://github.com/hidelab/diffcoexp
-biocViews: GeneExpression, Transcription, Microarray, OneChannel, TwoChannel, RNASeq
+biocViews: GeneExpression, DifferentialExpression, Transcription, Microarray, OneChannel, TwoChannel, RNASeq
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true
