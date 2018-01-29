@@ -38,8 +38,8 @@ The above method does not build and install vignette. To install the package wit
 \par
 git clone https://github.com/hidelab/diffcoexp.git \par
 R CMD build diffcoexp \par
-R CMD check diffcoexp\_0.0.0.9000.tar.gz \par
-R CMD INSTALL diffcoexp\_0.0.0.9000.tar.gz \smallskip
+R CMD check diffcoexp\_0.99.0.tar.gz \par
+R CMD INSTALL diffcoexp\_0.99.0.tar.gz \smallskip
 \par
 \noindent
 To remove this package, start R and enter: \par
