@@ -16,13 +16,13 @@ b). The difference between the correlation coefficients  under two conditions ar
 
 c). p values are adjusted.
 
-d). Gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links that meet the criteria are included in CO.links.
+d). Gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links that meet the criteria are included in CLs.
 
-e). Differentially coexpressed gene pairs (links) are identified from CO.links using the criteria that the absolute value of the difference between the two correlation coefficients is greater than the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links that meet the criteria are included in DCLs and DC.links.
+e). Differentially coexpressed gene pairs (links) are identified from CLs using the criteria that the absolute value of the difference between the two correlation coefficients is greater than the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links that meet the criteria are included in DCLs.
 
 f). The DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has opposite signed correlation coefficients under two conditions and only one of them meets the criteria that the absolute correlation coefficient is greater than the threshold rth and adjusted p value less than the threshold qth. "switched opposites" indicates that the gene pair has opposite signed correlation coefficients under two conditions and both of them meet the criteria that the absolute correlation coefficients are greater than the threshold rth and adjusted p value less than the threshold qth.
 
-g). All the genes in DCLs are tested for their enrichment of DCLs, i.e, whether they have more DCLs than by chance using binomial probability model (Jiang et al., 2016). Those with adjusted p value less than the threshold q.dcgth are included in DCGs. 
+g). All the genes in DCLs are tested for their enrichment of DCLs, i.e, whether they have more DCLs than by chance using binomial probability model (Jiang et al., 2016). Those with adjusted p value less than the threshold q.dcgth are included in DCGs.
 
 ## 2. Installation and removal
 
@@ -44,7 +44,7 @@ remove.packages("diffcoexp")
 ```
 ## 3. Example
 
-This example illustrates the workflow of downloading gene expression data from GEO and identifying differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). 
+This example illustrates the workflow of downloading gene expression data from GEO and identifying differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs).
 
 ```R
 library(GEOquery)
@@ -76,8 +76,8 @@ str(res)
 sessionInfo()
 ```
 ## 4. References
-1. de la Fuente A. From “differential expression” to “differential networking” – identification of dysfunctional regulatory networks in diseases. Trends in Genetics. 2010 Jul;26(7):326–33. 
+1. de la Fuente A. From “differential expression” to “differential networking” – identification of dysfunctional regulatory networks in diseases. Trends in Genetics. 2010 Jul;26(7):326–33.
 
 2. Jiang Z, Dong X, Li Z-G, He F, Zhang Z. Differential Coexpression Analysis Reveals Extensive Rewiring of Arabidopsis Gene Coexpression in Response to Pseudomonas syringae Infection. Scientific Reports. 2016 Dec;6(1):35064.
 
-3. Yu H, Liu B-H, Ye Z-Q, Li C, Li Y-X, Li Y-Y. Link-based quantitative methods to identify differentially coexpressed genes and gene pairs. BMC bioinformatics. 2011;12(1):315. 
+3. Yu H, Liu B-H, Ye Z-Q, Li C, Li Y-X, Li Y-Y. Link-based quantitative methods to identify differentially coexpressed genes and gene pairs. BMC bioinformatics. 2011;12(1):315.
