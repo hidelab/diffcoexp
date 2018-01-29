@@ -2,7 +2,7 @@ diffcoexp
 =========
 Differential coexpression analysis
 
-##### Wenbin Wei, Nov 24, 2017
+##### Wenbin Wei, Jan 29, 2018
 
 ## 1. Description
 
