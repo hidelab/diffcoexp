@@ -1,7 +1,7 @@
 Package: diffcoexp
 Title: Differential Co-expression Analysis
 Version: 0.99.0
-Date: 2010-01-30
+Date: 2018-01-30
 Author: Wenbin Wei, Sandeep Amberkar, Winston Hide
 Description: A tool for the analysis of differentially co-expressed gene pairs and enriched genes under two conditions.
 Maintainer: Wenbin Wei <W.Wei@Sheffield.ac.uk>
