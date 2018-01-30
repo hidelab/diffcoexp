@@ -1,8 +1,10 @@
 %\VignetteIndexEntry{About diffcoexp}
 \documentclass{article}
+\usepackage{authblk}
 \title{About diffcoexp}
 \date{2018-01-30}
 \author{Wenbin Wei, Sandeep Amberkar, Winston Hide}
+\affil{Sheffield Institute of Translational Neuroscience, University of Sheffield, Sheffield, United Kingdom}
 \usepackage[utf8]{inputenc}
 \begin{document}
 \SweaveOpts{concordance=TRUE}
