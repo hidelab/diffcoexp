@@ -2,7 +2,7 @@ Package: diffcoexp
 Title: Differential Co-expression Analysis
 Version: 0.99.0
 Date: 2017-10-11
-Authors@R: person("Wenbin", "Wei", email = "W.Wei@Sheffield.ac.uk", role = c("aut", "cre"))
+Authors: Wenbin Wei, Sandeep Amberkar, Winston Hide
 Description: A tool for the analysis of differentially co-expressed gene pairs and enriched genes under two conditions.
 Maintainer: Wenbin Wei <W.Wei@Sheffield.ac.uk>
 Depends: R (>= 3.5), DiffCorr, WGCNA, psych, igraph

@@ -2,7 +2,7 @@
 \documentclass{article}
 \title{About diffcoexp}
 \date{2018-01-29}
-\author{Wenbin Wei}
+\author{Wenbin Wei, Sandeep Amberkar, Winston Hide}
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 \maketitle
