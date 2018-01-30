@@ -5,7 +5,7 @@ Date: 2010-01-30
 Author: Wenbin Wei, Sandeep Amberkar, Winston Hide
 Description: A tool for the analysis of differentially co-expressed gene pairs and enriched genes under two conditions.
 Maintainer: Wenbin Wei <W.Wei@Sheffield.ac.uk>
-Depends: R (>= 3.5), DiffCorr, WGCNA, psych, igraph
+Depends: R (>= 3.5), stats, DiffCorr, WGCNA, psych, igraph
 URL: https://github.com/hidelab/diffcoexp
 biocViews: GeneExpression, DifferentialExpression, Transcription, Microarray, OneChannel, TwoChannel, RNASeq
 License: GPL (>=2)
