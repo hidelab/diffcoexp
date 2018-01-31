@@ -3,7 +3,7 @@ Title: Differential Co-expression Analysis
 Version: 0.99.0
 Date: 2018-01-30
 Author: Wenbin Wei, Sandeep Amberkar, Winston Hide
-Description: A tool for the analysis of differentially co-expressed gene pairs and enriched genes under two conditions.
+Description: A tool for the identification of differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions. DCGs are genes with significantly more DCLs than by chance.
 Maintainer: Wenbin Wei <W.Wei@Sheffield.ac.uk>
 Depends: R (>= 3.5), stats, DiffCorr, WGCNA, psych, igraph
 URL: https://github.com/hidelab/diffcoexp
