@@ -29,8 +29,8 @@
 #' #The result is a data frames.
 #' str(res)
 "coexpr"<-function(exprs.1, exprs.2, rth=0.5, qth=0.1,
-	r.method=c('pearson','spearman')[1],
-	q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr", "none")[1]) {
+    r.method=c('pearson','spearman')[1],
+    q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr", "none")[1]) {
     exprs.1<-exprs.1[!is.na(rownames(exprs.1)), ]
     exprs.1<-exprs.1[rownames(exprs.1) != "", ]
     exprs.2<-exprs.2[!is.na(rownames(exprs.2)), ]
@@ -39,9 +39,9 @@
         stop("rownames of two expression matrices must be the same!")
     }
     x<-comparecor(exprs.1, exprs.2, r.method=r.method)
-	if (!is.null(x)) {
-		print("Finished running comparecor.")
-	}
+    if (!is.null(x)) {
+    print("Finished running comparecor.")
+    }
     x<-subset(x, subset=( (abs(x$cor.1) > rth & x$q.1 < qth) | (abs(x$cor.2) > rth & x$q.2 < qth)) )
     return(x)
 }

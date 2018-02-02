@@ -72,8 +72,8 @@
 #' str(res)
 "diffcoexp" <-
 function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth=0.1,
-	r.method=c('pearson', 'kendall', 'spearman')[1],
-	q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr", "none")[1]) {
+    r.method=c('pearson', 'kendall', 'spearman')[1],
+    q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY","fdr", "none")[1]) {
     exprs.1<-exprs.1[!is.na(rownames(exprs.1)), ]
     exprs.1<-exprs.1[rownames(exprs.1) != "", ]
     exprs.2<-exprs.2[!is.na(rownames(exprs.2)), ]
@@ -82,42 +82,42 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
         stop("rownames of two expression matrices must be the same!")
     }
     if (length(rownames(exprs.1))==0 | length(rownames(exprs.2))==0) {
-		stop('the expression matrices must have row names specifying the gene names.')
-	}
-	if ( min(ncol(exprs.1),ncol(exprs.2))<3 ){
-		stop('each expression matrix must have at least three or more columns.')
-	} else if (min(ncol(exprs.1),ncol(exprs.2))<5 ) {
-		warning('the minimum number of columns is less than five and the result may not be reliable.')
-	}
-
- 	m <- nrow(exprs.1) # exprs.1, exprs.2 is the expression data for different conditions.
-	genes = rownames(exprs.1)
-
-	colinks = coexpr(exprs.1, exprs.2, r.method=r.method, rth=rth, qth=qth)
-	if(!is.null(colinks)) {
-		print("Finished running coexpr.")
-	}
-
-    if ( nrow(colinks)==0 ) {
-		Result <- emptyresult()
-		return(Result)
+        stop('the expression matrices must have row names specifying the gene names.')
+    }
+    if ( min(ncol(exprs.1),ncol(exprs.2))<3 ){
+        stop('each expression matrix must have at least three or more columns.')
+    } else if (min(ncol(exprs.1),ncol(exprs.2))<5 ) {
+        warning('the minimum number of columns is less than five and the result may not be reliable.')
     }
 
-	  #colinks$cor.diff<-colinks$cor.2-colinks$cor.1
-  	#############################################################
-  	## decide three sets of correlation pairs and organize them into two-columned matrices.
-  	#############################################################
+     m <- nrow(exprs.1) # exprs.1, exprs.2 is the expression data for different conditions.
+    genes = rownames(exprs.1)
 
-  	idx.same = (colinks$cor.1 * colinks$cor.2)>0;
-	idx.same[is.na(idx.same)] <- TRUE
-  	idx.diff = (colinks$cor.1 * colinks$cor.2)<0;
-	idx.diff[is.na(idx.diff)] <- FALSE
-  	idx.switched = (colinks$cor.1 * colinks$cor.2 <0) & ( abs(colinks$cor.1)>=rth & abs(colinks$cor.2)>=rth & colinks$q.1 < qth & colinks$q.2 < qth);
-	idx.switched[is.na(idx.switched)] <- FALSE
+    colinks = coexpr(exprs.1, exprs.2, r.method=r.method, rth=rth, qth=qth)
+    if(!is.null(colinks)) {
+        print("Finished running coexpr.")
+    }
+
+    if ( nrow(colinks)==0 ) {
+        Result <- emptyresult()
+        return(Result)
+    }
+
+      #colinks$cor.diff<-colinks$cor.2-colinks$cor.1
+      #############################################################
+      ## decide three sets of correlation pairs and organize them into two-columned matrices.
+      #############################################################
+
+      idx.same = (colinks$cor.1 * colinks$cor.2)>0;
+    idx.same[is.na(idx.same)] <- TRUE
+      idx.diff = (colinks$cor.1 * colinks$cor.2)<0;
+    idx.diff[is.na(idx.diff)] <- FALSE
+      idx.switched = (colinks$cor.1 * colinks$cor.2 <0) & ( abs(colinks$cor.1)>=rth & abs(colinks$cor.2)>=rth & colinks$q.1 < qth & colinks$q.2 < qth);
+    idx.switched[is.na(idx.switched)] <- FALSE
 
     cor.same = colinks[idx.same,]
-	cor.switched = colinks[idx.switched,]
-  	cor.diff = colinks[idx.diff & (!idx.switched), ]
+    cor.switched = colinks[idx.switched,]
+      cor.diff = colinks[idx.diff & (!idx.switched), ]
 
     name.same = NULL
     name.switched = NULL
@@ -127,11 +127,11 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
   #############################################################
     n.sameDCL = 0
     if(nrow(cor.same)>1){
-		idx.DCL.same = cor.same$q.diffcor < q.diffth & abs(cor.same$cor.diff) > r.diffth
-		DCL.same = cor.same[idx.DCL.same,]
-		name.same = DCL.same[, c("Gene.1","Gene.2")]
-		n.sameDCL = nrow(DCL.same)
- 	} else {
+        idx.DCL.same = cor.same$q.diffcor < q.diffth & abs(cor.same$cor.diff) > r.diffth
+        DCL.same = cor.same[idx.DCL.same,]
+        name.same = DCL.same[, c("Gene.1","Gene.2")]
+        n.sameDCL = nrow(DCL.same)
+     } else {
         DCL.same = NULL
     }
 
@@ -140,18 +140,18 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
   #############################################################
     n.diffDCL = 0
     if(nrow(cor.diff)>1){
-		idx.DCL.diff = cor.diff$q.diffcor < q.diffth & abs(cor.diff$cor.diff) > r.diffth
-		DCL.diff = cor.diff[idx.DCL.diff, ]
-		name.diff = DCL.diff[, c("Gene.1","Gene.2")]
-  		n.diffDCL = nrow(DCL.diff)
-	} else {
+        idx.DCL.diff = cor.diff$q.diffcor < q.diffth & abs(cor.diff$cor.diff) > r.diffth
+        DCL.diff = cor.diff[idx.DCL.diff, ]
+        name.diff = DCL.diff[, c("Gene.1","Gene.2")]
+          n.diffDCL = nrow(DCL.diff)
+    } else {
         DCL.diff = NULL
     }
 
 ################################################################################################
 ## Determine Switched DCLs if they exist
 ################################################################################################
-	n.switchedDCL = 0
+    n.switchedDCL = 0
     if(nrow(cor.switched)>1){
         idx.DCL.switched = cor.switched$q.diffcor < q.diffth & abs(cor.switched$cor.diff) > r.diffth
         DCL.switched = cor.switched[idx.DCL.switched,]
@@ -170,28 +170,28 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
     } else {
         print(paste(n.DCL, "DCLs identified."))
     }
-	name.DCL=rbind(name.same, name.diff, name.switched);
+    name.DCL=rbind(name.same, name.diff, name.switched);
 
 ####################################
 ## colinks
 ####################################
-	name.colinks = colinks[, c("Gene.1", "Gene.2")]
-	g.colinks <- graph.data.frame(name.colinks);
-	g.colinks.name <- as.matrix(igraph::V(g.colinks)$name);
-	degree.colinks <- igraph::degree(g.colinks);
+    name.colinks = colinks[, c("Gene.1", "Gene.2")]
+    g.colinks <- graph.data.frame(name.colinks);
+    g.colinks.name <- as.matrix(igraph::V(g.colinks)$name);
+    degree.colinks <- igraph::degree(g.colinks);
 #####################################
 ## DCLs
 #####################################
-	g.DCL <- graph.data.frame(name.DCL);
-	g.DCL.name <- as.matrix(igraph::V(g.DCL)$name);
-	degree.DCL <- igraph::degree(g.DCL);
+    g.DCL <- graph.data.frame(name.DCL);
+    g.DCL.name <- as.matrix(igraph::V(g.DCL)$name);
+    degree.DCL <- igraph::degree(g.DCL);
 ######################################
 ##DCLs of same sign
 ######################################
     if(n.sameDCL>0) {
         g.same <- graph.data.frame(name.same);
-	    g.same.name <- as.matrix(igraph::V(g.same)$name);
-	    degree.same <- as.matrix(igraph::degree(g.same));
+        g.same.name <- as.matrix(igraph::V(g.same)$name);
+        degree.same <- as.matrix(igraph::degree(g.same));
     } else {
         degree.same = matrix(0,1,1)
     }
@@ -200,9 +200,9 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 ## DCLs of different sign
 ########################################
     if(n.diffDCL>0) {
-	    g.diff <- graph.data.frame(name.diff);
-	    g.diff.name <- as.matrix(igraph::V(g.diff)$name);
-	    degree.diff <- as.matrix(igraph::degree(g.diff));
+        g.diff <- graph.data.frame(name.diff);
+        g.diff.name <- as.matrix(igraph::V(g.diff)$name);
+        degree.diff <- as.matrix(igraph::degree(g.diff));
     } else {
         degree.diff = matrix(0,1,1)
     }
@@ -210,50 +210,50 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
 #######################################
 ## DCLs of switched correlation
 #######################################
-	if(n.switchedDCL>0) {
-		g.switch <- graph.data.frame(name.switched);
-		g.switch.name <- as.matrix(igraph::V(g.switch)$name);
-		degree.switch <- as.matrix(igraph::degree(g.switch));
-	} else {
+    if(n.switchedDCL>0) {
+        g.switch <- graph.data.frame(name.switched);
+        g.switch.name <- as.matrix(igraph::V(g.switch)$name);
+        degree.switch <- as.matrix(igraph::degree(g.switch));
+    } else {
         degree.switch = matrix(0,1,1)
-	}
+    }
 
 #######################################
 ## Numbers for DCLs of different type.
 #######################################
-	degree.bind <- matrix(0,m,5)
-	row.names(degree.bind) <- genes
-	colnames(degree.bind) <- c("CLs", "DCLs", "DCL.same", "DCL.diff", "DCL.switched")
+    degree.bind <- matrix(0,m,5)
+    row.names(degree.bind) <- genes
+    colnames(degree.bind) <- c("CLs", "DCLs", "DCL.same", "DCL.diff", "DCL.switched")
 
-	degree.bind[g.colinks.name,1]=degree.colinks
-	degree.bind[g.DCL.name,2]=degree.DCL
+    degree.bind[g.colinks.name,1]=degree.colinks
+    degree.bind[g.DCL.name,2]=degree.DCL
     if(n.sameDCL>0) {
-	    degree.bind[g.same.name,3]=degree.same
+        degree.bind[g.same.name,3]=degree.same
     }
     if(n.diffDCL>0) {
-	    degree.bind[g.diff.name,4]=degree.diff
+        degree.bind[g.diff.name,4]=degree.diff
     }
-	if(n.switchedDCL>0) {
-		degree.bind[g.switch.name,5]=degree.switch
-	}
+    if(n.switchedDCL>0) {
+        degree.bind[g.switch.name,5]=degree.switch
+    }
 
 ########################################################
 ## DCGs Identification
 ########################################################
- 	prob <- nrow(name.DCL)/nrow(name.colinks)
-	p.value <- pbinom(degree.bind[,'DCLs']-1, degree.bind[,'CLs'], prob, lower.tail = FALSE, log.p = FALSE);
- 	q.value <- p.adjust(p.value, method=q.method);
+     prob <- nrow(name.DCL)/nrow(name.colinks)
+    p.value <- pbinom(degree.bind[,'DCLs']-1, degree.bind[,'CLs'], prob, lower.tail = FALSE, log.p = FALSE);
+     q.value <- p.adjust(p.value, method=q.method);
 
- 	degree.bind <- cbind(degree.bind, p.value, q.value)
- 	colnames(degree.bind) <- c("CLs","DCLs","DCL.same","DCL.diff","DCL.switch","p","q")
+     degree.bind <- cbind(degree.bind, p.value, q.value)
+     colnames(degree.bind) <- c("CLs","DCLs","DCL.same","DCL.diff","DCL.switch","p","q")
 
- 	middle <-sort(as.numeric(degree.bind[,'q']), method = "quick", decreasing=FALSE,index.return=TRUE)$ix
- 	DCGs <- degree.bind[middle,]
-	DCGs <- as.data.frame(DCGs)
-	DCGs <- subset(DCGs, subset= q < q.dcgth)
-	DCGs <- cbind(Gene=as.character(rownames(DCGs)), DCGs)
-	DCGs$Gene <- as.character(DCGs$Gene)
-	print(paste(length(DCGs$Gene), "DCGs identified."))
+     middle <-sort(as.numeric(degree.bind[,'q']), method = "quick", decreasing=FALSE,index.return=TRUE)$ix
+     DCGs <- degree.bind[middle,]
+    DCGs <- as.data.frame(DCGs)
+    DCGs <- subset(DCGs, subset= q < q.dcgth)
+    DCGs <- cbind(Gene=as.character(rownames(DCGs)), DCGs)
+    DCGs$Gene <- as.character(DCGs$Gene)
+    print(paste(length(DCGs$Gene), "DCGs identified."))
 
  #########################################################
     DCLs=data.frame()
@@ -269,24 +269,24 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth
         DCLs <- rbind(DCLs, data.frame(DCL.switched, type='switched opposites'))
     }
 
-	DCLs$Gene.1 <-as.character(DCLs$Gene.1)
-	DCLs$Gene.2 <-as.character(DCLs$Gene.2)
+    DCLs$Gene.1 <-as.character(DCLs$Gene.1)
+    DCLs$Gene.2 <-as.character(DCLs$Gene.2)
 
- 	Result <- list(DCGs=DCGs,DCLs=DCLs)
-	return(Result)
+     Result <- list(DCGs=DCGs,DCLs=DCLs)
+    return(Result)
 }
 
 "emptyresult"<-function() {
-	DCGs = matrix(0,0, 8)
-	colnames(DCGs) = c("Gene", "CLs", "DCLs", "DCL.same", "DCL.diff",
-	"DCL.switched", "p", "q")
-	DCGs<-as.data.frame (DCGs)
-	DCLs = matrix(0,0,12)
-	colnames(DCLs) <- c("Gene.1", "Gene.2", "cor.1", "cor.2", "p.1", "p.2",
-	"p.diffcor", "q.1", "q.2", "q.diffcor", "cor.diff", "type" )
-	DCLs = as.data.frame(DCLs, stringsAsFactors =FALSE)
-	Result <- list(DCGs=DCGs,DCLs=DCLs)
-	return(Result)
+    DCGs = matrix(0,0, 8)
+    colnames(DCGs) = c("Gene", "CLs", "DCLs", "DCL.same", "DCL.diff",
+    "DCL.switched", "p", "q")
+    DCGs<-as.data.frame (DCGs)
+    DCLs = matrix(0,0,12)
+    colnames(DCLs) <- c("Gene.1", "Gene.2", "cor.1", "cor.2", "p.1", "p.2",
+    "p.diffcor", "q.1", "q.2", "q.diffcor", "cor.diff", "type" )
+    DCLs = as.data.frame(DCLs, stringsAsFactors =FALSE)
+    Result <- list(DCGs=DCGs,DCLs=DCLs)
+    return(Result)
 }
 
 #The results of diffcoexp can be further analysed using DRsort fucntion of DCGL package
