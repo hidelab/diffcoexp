@@ -2,7 +2,7 @@
 \documentclass{article}
 \usepackage{authblk}
 \title{About diffcoexp}
-\date{February 1, 2018}
+\date{February 2, 2018}
 \author{Wenbin Wei, Sandeep Amberkar, Winston Hide}
 \affil{Sheffield Institute of Translational Neuroscience, University of Sheffield, Sheffield, United Kingdom}
 \usepackage[utf8]{inputenc}
@@ -80,7 +80,7 @@ remove.packages("diffcoexp")
 \section{Example}
 This example illustrates the identification of differentially coexpressed links (gene 
 pairs) and differentially coexpressed genes of yeast after pulses of 2 g/l and 0.2 g/l 
-glucose separately. The data were downloaded from GEO (GSE4158). Only 200 genes were 
+glucose separately. The data were downloaded from GEO (GSE4158). Only 400 genes were 
 analysed in this example. Analysis of all the genes (6104) will take about 20 minutes on 
 a computer with 8 cores and 16GB RAM.
 <<results=hide>>=
