@@ -337,13 +337,13 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1,
     q.value <- p.adjust(p.value, method=q.method);
     degree.bind <- cbind(degree.bind, p.value, q.value)
     colnames(degree.bind) <- c("CLs","DCLs","DCL.same","DCL.diff","DCL.switch","p","q")
-    middle <-sort(as.numeric(degree.bind[,'q']), method = "quick",
-        decreasing=FALSE,index.return=TRUE)$ix
-    DCGs <- degree.bind[middle,]
+    DCGs <- degree.bind
     DCGs <- as.data.frame(DCGs)
     DCGs <- subset(DCGs, subset= q < q.dcgth)
     DCGs <- cbind(Gene=as.character(rownames(DCGs)), DCGs)
     DCGs$Gene <- as.character(DCGs$Gene)
+    o<-order(DCGs$p)
+    DCGs<-DCGs[o,]
     print(paste(length(DCGs$Gene), "DCGs identified."))
 
 #########################################################
