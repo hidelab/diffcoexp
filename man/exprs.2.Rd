@@ -3,7 +3,7 @@
 \docType{data}
 \name{exprs.2}
 \alias{exprs.2}
-\title{exprs.1}
+\title{exprs.2}
 \format{A data frame with 400 genes and 12 samples.}
 \usage{
 exprs.2
