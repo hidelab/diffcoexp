@@ -8,7 +8,7 @@ Maintainer: Wenbin Wei <W.Wei@sheffield.ac.uk>
 Depends: R (>= 3.5), stats, DiffCorr, WGCNA, psych, igraph, BiocGenerics
 URL: https://github.com/hidelab/diffcoexp
 biocViews: GeneExpression, DifferentialExpression, Transcription, Microarray, OneChannel, TwoChannel, RNASeq
-License: GPL (>=2)
+License: GPL (>2)
 Encoding: UTF-8
 LazyData: true
 Suggests: GEOquery
