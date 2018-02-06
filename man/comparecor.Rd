@@ -9,9 +9,9 @@ comparecor(exprs.1, exprs.2, r.method = c("pearson", "spearman")[1],
   "none")[1])
 }
 \arguments{
-\item{exprs.1}{a data frame or matrix for condition 1, with gene IDs as rownames and sample IDs as column names.}
+\item{exprs.1}{a SummarizedExperiment, data frame or matrix for condition 1, with gene IDs as rownames and sample IDs as column names.}
 
-\item{exprs.2}{a data frame or matrix for condition 2, with gene IDs as rownames and sample IDs as column names.}
+\item{exprs.2}{a SummarizedExperiment, data frame or matrix for condition 2, with gene IDs as rownames and sample IDs as column names.}
 
 \item{r.method}{a character string specifying the method to be used to calculate correlation coefficients.}
 

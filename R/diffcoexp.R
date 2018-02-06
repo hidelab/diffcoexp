@@ -3,10 +3,10 @@
 #'
 #' This function identifies differentially coexpressed links (DCLs) and
 #' differentially coexpressed genes (DCGs).
-#' @param exprs.1 a data frame or matrix for condition 1, with gene IDs as
-#' rownames and sample IDs as column names.
-#' @param exprs.2 a data frame or matrix for condition 2, with gene IDs as
-#' rownames and sample IDs as column names.
+#' @param exprs.1 a SummarizedExperiment, data frame or matrix
+#' for condition 1, with gene IDs as rownames and sample IDs as column names.
+#' @param exprs.2 a SummarizedExperiment, data frame or matrix
+#' for condition 2, with gene IDs as rownames and sample IDs as column names.
 #' @param rth the cutoff of r; must be within [0,1].
 #' @param qth the cutoff of q-value (adjusted p value); must be within [0,1].
 #' @param r.diffth the cutoff of absolute value of the difference between the
@@ -157,6 +157,12 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1,
     q.dcgth=0.1, r.method=c('pearson', 'kendall', 'spearman')[1],
     q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
     "none")[1]) {
+    if (grepl("SummarizedExperiment", class(exprs.1))) {
+        exprs.1<- assays(exprs.1)[[1]]
+    }
+    if (grepl("SummarizedExperiment", class(exprs.2))) {
+        exprs.2<- assays(exprs.2)[[1]]
+    }
     exprs.1<-exprs.1[!is.na(rownames(exprs.1)), ]
     exprs.1<-exprs.1[rownames(exprs.1) != "", ]
     exprs.2<-exprs.2[!is.na(rownames(exprs.2)), ]

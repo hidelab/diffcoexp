@@ -2,10 +2,10 @@
 #'
 #' This function identifies gene pairs coexpressed in at least one of two
 #' conditions.
-#' @param exprs.1 a data frame or matrix for condition 1, with gene IDs as
-#' rownames and sample IDs as column names.
-#' @param exprs.2 a data frame or matrix for condition 2, with gene IDs as
-#' rownames and sample IDs as column names.
+#' @param exprs.1 a SummarizedExperiment, data frame or matrix
+#' for condition 1, with gene IDs as rownames and sample IDs as column names.
+#' @param exprs.2 a SummarizedExperiment, data frame or matrix
+#' for condition 2, with gene IDs as rownames and sample IDs as column names.
 #' @param rth the cutoff of r; must be within [0,1].
 #' @param qth the cutoff of q-value; must be within [0,1].
 #' @param r.method a character string specifying the method to be used to
@@ -48,6 +48,12 @@
     r.method=c('pearson','spearman')[1],
     q.method=c("BH", "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
     "none")[1]) {
+    if (grepl("SummarizedExperiment", class(exprs.1))) {
+        exprs.1<- assays(exprs.1)[[1]]
+    }
+    if (grepl("SummarizedExperiment", class(exprs.2))) {
+        exprs.2<- assays(exprs.2)[[1]]
+    }
     exprs.1<-exprs.1[!is.na(rownames(exprs.1)), ]
     exprs.1<-exprs.1[rownames(exprs.1) != "", ]
     exprs.2<-exprs.2[!is.na(rownames(exprs.2)), ]

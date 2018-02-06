@@ -9,9 +9,9 @@ coexpr(exprs.1, exprs.2, rth = 0.5, qth = 0.1, r.method = c("pearson",
   "bonferroni", "BY", "fdr", "none")[1])
 }
 \arguments{
-\item{exprs.1}{a data frame or matrix for condition 1, with gene IDs as rownames and sample IDs as column names.}
+\item{exprs.1}{a SummarizedExperiment, data frame or matrix for condition 1, with gene IDs as rownames and sample IDs as column names.}
 
-\item{exprs.2}{a data frame or matrix for condition 2, with gene IDs as rownames and sample IDs as column names.}
+\item{exprs.2}{a SummarizedExperiment, data frame or matrix for condition 2, with gene IDs as rownames and sample IDs as column names.}
 
 \item{rth}{the cutoff of r; must be within [0,1].}
 
