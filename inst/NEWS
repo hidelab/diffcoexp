@@ -1,5 +1,27 @@
-**************************************************
-*              diffcoexp NEWS               *
-**************************************************
+CHANGES IN VERSION 0.99.2
+-------------------------
 
-- Added to the Bioconductor for the first time in February 2018
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o example data exprs.1 and exprs.2 are represented as matrices
+
+BUG FIXES
+
+    o this package imports rather than depends on the following packages: stats, DiffCorr, psych, igraph, BiocGenerics
+    o messages are generated using message() instead of print() function.
+    o use is() function to test inheritance relationships between an object and a class.
+    o format NEWS file so that utils::news() parses the file.
+
+CHANGES IN VERSION 0.99.1
+-------------------------
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o diffcoexp(), coexpr(), and comparecor() accept SummarizedExperiment objects.
+
+CHANGES IN VERSION 0.99.0
+-------------------------
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o this package was given version number 0.99.0 and submitted to Bioconductor.

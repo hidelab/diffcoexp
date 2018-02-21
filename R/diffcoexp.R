@@ -157,10 +157,10 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1,
     q.dcgth=0.1, r.method=c('pearson', 'kendall', 'spearman')[1],
     q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
     "none")[1]) {
-    if (grepl("SummarizedExperiment", class(exprs.1))) {
+    if (is(exprs.1, "SummarizedExperiment")) {
         exprs.1<- assays(exprs.1)[[1]]
     }
-    if (grepl("SummarizedExperiment", class(exprs.2))) {
+    if (is(exprs.2, "SummarizedExperiment")) {
         exprs.2<- assays(exprs.2)[[1]]
     }
     exprs.1<-exprs.1[!is.na(rownames(exprs.1)), ]
@@ -185,7 +185,7 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1,
 
     colinks = coexpr(exprs.1, exprs.2, r.method=r.method, rth=rth, qth=qth)
     if(!is.null(colinks)) {
-        print("Finished running coexpr.")
+        message("Finished running coexpr.")
     }
 
     if ( nrow(colinks)==0 ) {
@@ -257,13 +257,13 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1,
     }
 
     n.DCL <- n.sameDCL + n.diffDCL + n.switchedDCL
-    print(paste(nrow(colinks), "gene pairs remain after half thresholding."))
+    message(nrow(colinks), " gene pairs remain after half thresholding.")
     if (n.DCL == 0) {
-        print("No DCL meets the thresholds!")
+        message("No DCL meets the thresholds!")
         Result <- emptyresult()
         return(Result)
     } else {
-        print(paste(n.DCL, "DCLs identified."))
+        message(n.DCL, " DCLs identified.")
     }
     name.DCL=rbind(name.same, name.diff, name.switched);
 
@@ -350,7 +350,7 @@ function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1,
     DCGs$Gene <- as.character(DCGs$Gene)
     o<-order(DCGs$p)
     DCGs<-DCGs[o,]
-    print(paste(length(DCGs$Gene), "DCGs identified."))
+    message(length(DCGs$Gene), " DCGs identified.")
 
 #########################################################
     DCLs=data.frame()

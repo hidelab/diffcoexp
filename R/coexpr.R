@@ -48,10 +48,10 @@
     r.method=c('pearson','spearman')[1],
     q.method=c("BH", "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
     "none")[1]) {
-    if (grepl("SummarizedExperiment", class(exprs.1))) {
+    if (is(exprs.1, "SummarizedExperiment")) {
         exprs.1<- assays(exprs.1)[[1]]
     }
-    if (grepl("SummarizedExperiment", class(exprs.2))) {
+    if (is(exprs.2, "SummarizedExperiment")) {
         exprs.2<- assays(exprs.2)[[1]]
     }
     exprs.1<-exprs.1[!is.na(rownames(exprs.1)), ]
@@ -63,7 +63,7 @@
     }
     x<-comparecor(exprs.1, exprs.2, r.method=r.method)
     if (!is.null(x)) {
-        print("Finished running comparecor.")
+        message("Finished running comparecor.")
     }
     x<-subset(x, subset=( (abs(x$cor.1) > rth & x$q.1 < qth) |
         (abs(x$cor.2) > rth & x$q.2 < qth)) )
