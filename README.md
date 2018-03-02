@@ -30,7 +30,7 @@ installed within R as follows:
 ```R
 ## try http:// if https:// URLs are not supported
 source("https://bioconductor.org/biocLite.R")
-biocLite("dicoexp")
+biocLite("diffcoexp")
 ```
 To install this package from GitHub, start R and enter:
 ```R
@@ -41,8 +41,8 @@ The above method does not build and install vignette. To install the package wit
 ```
 git clone https://github.com/hidelab/diffcoexp.git
 R CMD build diffcoexp
-R CMD check diffcoexp_0.99.1.tar.gz
-R CMD INSTALL diffcoexp_0.99.1.tar.gz
+R CMD check diffcoexp_0.99.3.tar.gz
+R CMD INSTALL diffcoexp_0.99.3.tar.gz
 ```
 To remove this package, start R and enter:
 ```R
