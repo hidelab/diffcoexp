@@ -75,8 +75,8 @@ vignette, enter the following from command line: \par
 \par
 git clone https://github.com/hidelab/diffcoexp.git \par
 R CMD build diffcoexp \par
-R CMD check diffcoexp\_0.99.3.tar.gz \par
-R CMD INSTALL diffcoexp\_0.99.3.tar.gz \smallskip
+R CMD check diffcoexp\_0.99.4.tar.gz \par
+R CMD INSTALL diffcoexp\_0.99.4.tar.gz \smallskip
 \par
 \noindent
 To remove this package, start R and enter: \par
