@@ -41,8 +41,8 @@ The above method does not build and install vignette. To install the package wit
 ```
 git clone https://github.com/hidelab/diffcoexp.git
 R CMD build diffcoexp
-R CMD check diffcoexp_0.99.4.tar.gz
-R CMD INSTALL diffcoexp_0.99.4.tar.gz
+R CMD check diffcoexp_0.99.2.tar.gz
+R CMD INSTALL diffcoexp_0.99.2.tar.gz
 ```
 To remove this package, start R and enter:
 ```R
@@ -95,7 +95,7 @@ library(diffcoexp)
 allowWGCNAThreads()
 res=diffcoexp(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman" )
 ```
-The results are a list of two data frames, one for differentially co-expressed links (DCLs, gene pairs), one for differentially co-expressed genes (DCGs).
+The results are a list of two data frames, one for differentially co-expressed links (DCLs, gene pairs), the other for differentially co-expressed genes (DCGs).
 ```R
 str(res)
 sessionInfo()
