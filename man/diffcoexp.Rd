@@ -4,29 +4,21 @@
 \alias{diffcoexp}
 \title{Differential co-expression analysis}
 \usage{
-diffcoexp(exprs.1, exprs.2, rth = 0.5, qth = 0.1, r.diffth = 0.5,
-  q.diffth = 0.1, q.dcgth = 0.1, r.method = c("pearson", "kendall",
-  "spearman")[1], q.method = c("BH", "holm", "hochberg", "hommel",
-  "bonferroni", "BY", "fdr", "none")[1])
+diffcoexp(exprs.1, exprs.2, r.method = c("pearson", "kendall", "spearman")[1],
+  q.method = c("BH", "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
+  "none")[1], rth = 0.5, qth = 0.1, r.diffth = 0.5, q.diffth = 0.1,
+  q.dcgth = 0.1)
 }
 \arguments{
 \item{exprs.1}{a SummarizedExperiment, data frame or matrix for condition 1, with gene IDs as rownames and sample IDs as column names.}
-
 \item{exprs.2}{a SummarizedExperiment, data frame or matrix for condition 2, with gene IDs as rownames and sample IDs as column names.}
-
-\item{rth}{the cutoff of r; must be within [0,1].}
-
+\item{r.method}{a character string specifying the method to be used to calculate correlation coefficients. It is passed to the cor function of the WGCNA package.}
+\item{q.method}{a character string specifying the method for adjusting p values. It is passed to the p.adjust function of the stats package.}
+\item{rth}{the cutoff of absolute value of correlation coefficients; must be within [0,1].}
 \item{qth}{the cutoff of q-value (adjusted p value); must be within [0,1].}
-
 \item{r.diffth}{the cutoff of absolute value of the difference between the correlation coefficients of the two conditions; must be within [0,1].}
-
 \item{q.diffth}{the cutoff of q-value (adjusted p value) of the difference between the correlation coefficients of the two conditions; must be within [0,1].}
-
 \item{q.dcgth}{the cutoff of q-value (adjusted p value) of the genes enriched in the differentilly correlated gene pairs between the two conditions; must be within [0,1].}
-
-\item{r.method}{a character string specifying the method to be used to calculate correlation coefficients.}
-
-\item{q.method}{a character string specifying the method for adjusting p values.}
 }
 \value{
 a list of two data frames.

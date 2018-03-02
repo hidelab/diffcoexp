@@ -153,10 +153,9 @@
 #' #links (DCLs, gene pairs) and one for differentially co-expressed genes (DCGs).
 #' str(res)
 "diffcoexp" <-
-function(exprs.1, exprs.2, rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1,
-    q.dcgth=0.1, r.method=c('pearson', 'kendall', 'spearman')[1],
-    q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
-    "none")[1]) {
+function(exprs.1, exprs.2, r.method=c('pearson', 'kendall', 'spearman')[1],
+q.method=c("BH","holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
+"none")[1], rth=0.5, qth=0.1, r.diffth=0.5, q.diffth=0.1, q.dcgth=0.1) {
     if (is(exprs.1, "SummarizedExperiment")) {
         exprs.1<- assays(exprs.1)[[1]]
     }

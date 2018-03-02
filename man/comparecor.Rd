@@ -10,12 +10,9 @@ comparecor(exprs.1, exprs.2, r.method = c("pearson", "spearman")[1],
 }
 \arguments{
 \item{exprs.1}{a SummarizedExperiment, data frame or matrix for condition 1, with gene IDs as rownames and sample IDs as column names.}
-
 \item{exprs.2}{a SummarizedExperiment, data frame or matrix for condition 2, with gene IDs as rownames and sample IDs as column names.}
-
-\item{r.method}{a character string specifying the method to be used to calculate correlation coefficients.}
-
-\item{q.method}{a character string specifying the method for adjusting p values.}
+\item{r.method}{a character string specifying the method to be used to calculate correlation coefficients. It is passed to the cor function of the WGCNA package.}
+\item{q.method}{a character string specifying the method for adjusting p values. It is passed to the p.adjust function of the stats package.}
 }
 \value{
 a data frame containing the differences between the correlation coefficients under two consitions and their p values. It has the following columns:

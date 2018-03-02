@@ -4,22 +4,17 @@
 \alias{coexpr}
 \title{Identification of gene pairs coexpressed in at least one of two conditions}
 \usage{
-coexpr(exprs.1, exprs.2, rth = 0.5, qth = 0.1, r.method = c("pearson",
-  "spearman")[1], q.method = c("BH", "holm", "hochberg", "hommel",
-  "bonferroni", "BY", "fdr", "none")[1])
+coexpr(exprs.1, exprs.2, r.method = c("pearson", "spearman")[1],
+  q.method = c("BH", "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
+  "none")[1], rth = 0.5, qth = 0.1)
 }
 \arguments{
 \item{exprs.1}{a SummarizedExperiment, data frame or matrix for condition 1, with gene IDs as rownames and sample IDs as column names.}
-
 \item{exprs.2}{a SummarizedExperiment, data frame or matrix for condition 2, with gene IDs as rownames and sample IDs as column names.}
-
-\item{rth}{the cutoff of r; must be within [0,1].}
-
-\item{qth}{the cutoff of q-value; must be within [0,1].}
-
-\item{r.method}{a character string specifying the method to be used to calculate correlation coefficients.}
-
-\item{q.method}{a character string specifying the method for adjusting p values.}
+\item{r.method}{a character string specifying the method to be used to calculate correlation coefficients. It is passed to the cor function of the WGCNA package.}
+\item{q.method}{a character string specifying the method for adjusting p values. It is passed to the p.adjust function of the stats package.}
+\item{rth}{the cutoff of absolute value of correlation coefficients; must be within [0,1].}
+\item{qth}{the cutoff of q-value (adjusted p value); must be within [0,1].}
 }
 \value{
 a data frame containing gene pairs that are coexpressed in at least one of the conditions with the criteria that the absolute value of correlation coefficient is greater than rth and q value less than qth. It has the following columns:

@@ -44,10 +44,9 @@
 #' res=coexpr(exprs.1 = exprs.1, exprs.2 = exprs.2, r.method = "spearman")
 #' #The result is a data frames.
 #' str(res)
-"coexpr"<-function(exprs.1, exprs.2, rth=0.5, qth=0.1,
-    r.method=c('pearson','spearman')[1],
+"coexpr"<-function(exprs.1, exprs.2, r.method=c('pearson','spearman')[1],
     q.method=c("BH", "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr",
-    "none")[1]) {
+    "none")[1], rth=0.5, qth=0.1) {
     if (is(exprs.1, "SummarizedExperiment")) {
         exprs.1<- assays(exprs.1)[[1]]
     }
