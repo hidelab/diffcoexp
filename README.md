@@ -49,7 +49,7 @@ To remove this package, start R and enter:
 remove.packages("diffcoexp")
 ```
 
-## 3.Input and output of *diffcoexp* function
+## 3. Input and output of *diffcoexp* function
 The main function of this package is *diffcoexp* function. The first two arguments, *exprs.1* and *exprs.2*, are normalized gene expression data under two conditions with rows as genes and columns as samples. They should be objects of classes *SummarizedExperiment*, *data.frame* or *matrix*. Both should have the same number of genes in the same order. The third argument *r.method* is passed to the *cor* function of the *WGCNA* package as argument *method*, details of which can be found by typing
 ```R
 help(cor, WGCNA)
@@ -64,7 +64,7 @@ help(diffcoexp, diffcoexp)
 ```
 The output of *diffcoexp* function is a list of two data frames, one for differentially co-expressed links (DCLs), the other for differentially co-expressed genes (DCGs). Further details of the output can be seen on the help page.
 
-##4. Analysis and interpretation of DCGs and DCLs
+## 4. Analysis and interpretation of DCGs and DCLs
 DCGs are a list of genes and therefore can be further analysed using other tools such as FGNet (https://bioconductor.org/packages/release/bioc/html/FGNet.html), clusterProfiler (https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) and enrichr (http://amp.pharm.mssm.edu/Enrichr/). DCLs are a list of differentially co-expressed gene pairs and can be assembled into a differential coexpression network. The network is scale-free but not smallworld (Hsu et al., 2017). The network can be visualized and analyzed using igraph (https://cran.r-project.org/web/packages/igraph/index.html). DCLs can also be further analyzed to identify upstream causal regulators using other tools such as DCGL v2.0 (Yang et al., 2013).
 
 ## 5. Example
