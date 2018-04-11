@@ -30,20 +30,20 @@
 #' correlated links (gene pairs) with q value less than q.dcgth.
 #' It has the following columns:
 #'   \item{\code{Gene}}{Gene ID}
-#'   \item{\code{CLs}}{Number of links with the absolute correlation
-#' coefficients greater than rth and q value less than qth in at least one
+#'   \item{\code{CLs}}{Number of links with absolute correlation
+#' coefficient greater than rth and q value less than qth in at least one
 #' condition}
 #'   \item{\code{DCLs}}{Number of links that meet the criteria for CLs and the
-#' criteria that the absolute differences between the correlation coefficients
-#' in the two condition greater than r.diffth and q value less than q.diffth}
+#' criteria that the absolute value of the difference between the correlation coefficients
+#' in the two condition is greater than r.diffth and q value less than q.diffth}
 #'   \item{\code{DCL.same}}{Number of subset of DCLs with same signed
 #' correlation coefficients in both conditions}
 #'   \item{\code{DCL.diff}}{Number of subset of DCLs with oppositely signed
-#' correlation coefficients under two conditions but only one of them with the
-#' absolute correlation coefficients greater than rth and q value less than qth}
+#' correlation coefficients under two conditions but only one of them has
+#' absolute correlation coefficient greater than rth and q value less than qth}
 #'   \item{\code{DCL.switch}}{Number of subset of DCLs with oppositely signed
-#' correlation coefficients under two conditions and both of them with the
-#' absolute correlation coefficients greater than rth and q value less than qth}
+#' correlation coefficients under two conditions and both of them have
+#' absolute correlation coefficient greater than rth and q value less than qth}
 #'   \item{\code{p}}{p value of having >=DCLs given CLs}
 #'   \item{\code{q}}{adjusted p value}
 #'
@@ -77,11 +77,11 @@
 #' "switched opposites". "same signed" indicates that the gene pair has same
 #' signed correlation coefficients under both conditions. "diff signed"
 #' indicates that the gene pair has oppositely signed correlation coefficients
-#' under two conditions and only one of them meets the criteria that the
-#' absolute correlation coefficients greater than rth and q value less than qth.
+#' under two conditions and only one of them meets the criteria that
+#' absolute correlation coefficient is greater than rth and q value less than qth.
 #' "switched opposites" indicates that the gene pair has oppositely signed
 #' correlation coefficients under two conditions and both of them meet the
-#' criteria that the absolute correlation coefficients greater than rth and q
+#' criteria that absolute correlation coefficient is greater than rth and q
 #' value less than qth.}
 #' @details diffcoexp function identifies differentially coexpressed links
 #' (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with
@@ -106,7 +106,7 @@
 #'
 #' d). Gene pairs (links) coexpressed in at least one condition are identified
 #' using the criteria that at least one of the correlation coefficients under
-#' two conditions having absolute value greater than the threshold rth and the
+#' two conditions has absolute value greater than the threshold rth and 
 #' adjusted p value less than the threshold qth. The links that meet the
 #' criteria are included in CLs.
 #'
@@ -121,11 +121,11 @@
 #' pair has same signed correlation coefficients under both conditions.
 #' "diff signed" indicates that the gene pair has oppositely signed correlation
 #' coefficients under two conditions and only one of them meets the criteria
-#' that the absolute correlation coefficient is greater than the threshold rth
+#' that absolute correlation coefficient is greater than the threshold rth
 #' and adjusted p value less than the threshold qth. "switched opposites"
 #' indicates that the gene pair has oppositely signed correlation coefficients
-#' under two conditions and both of them meet the criteria that the absolute
-#' correlation coefficients are greater than the threshold rth and adjusted p
+#' under two conditions and both of them meet the criteria that absolute
+#' correlation coefficient is greater than the threshold rth and adjusted p
 #' value less than the threshold qth.
 #'
 #' g). All the genes in DCLs are tested for their enrichment of DCLs, i.e,

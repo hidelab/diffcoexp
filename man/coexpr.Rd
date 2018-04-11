@@ -17,7 +17,7 @@ coexpr(exprs.1, exprs.2, r.method = c("pearson", "spearman")[1],
 \item{qth}{the cutoff of q-value (adjusted p value); must be within [0,1].}
 }
 \value{
-a data frame containing gene pairs that are coexpressed in at least one of the conditions with the criteria that the absolute value of correlation coefficient is greater than rth and q value less than qth. It has the following columns:
+a data frame containing gene pairs that are coexpressed in at least one of the conditions with the criteria that absolute value of correlation coefficient is greater than rth and q value less than qth. It has the following columns:
   \item{\code{Gene.1}}{Gene ID}
   \item{\code{Gene.2}}{Gene ID}
   \item{\code{cor.1}}{correlation coefficients under condition 1}

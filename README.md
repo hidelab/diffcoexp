@@ -2,7 +2,7 @@ diffcoexp
 =========
 Differential coexpression analysis
 
-##### Wenbin Wei, Sandeep Amberkar, Winston Hide, March 2, 2018
+##### Wenbin Wei, Sandeep Amberkar, Winston Hide, April 11, 2018
 
 ## 1. Description
 
@@ -12,20 +12,20 @@ The main steps are as follows:
 
 a). Correlation coefficients and p values of all gene pairs under two conditions are calculated.
 
-b). The difference between the correlation coefficients  under two conditions are calculated and the p value is calculated using Fisher's Z-transformation.
+b). The differences between the correlation coefficients  under two conditions are calculated and their p values are calculated using Fisher's Z-transformation.
 
 c). p values are adjusted.
 
-d). Gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the correlation coefficients under two conditions having absolute value greater than the threshold *rth* and the adjusted p value less than the threshold *qth*. The links that meet the criteria are included in co-expressed links (CLs).
+d). Gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the correlation coefficients under two conditions has absolute value greater than the threshold *rth* and adjusted p value less than the threshold *qth*. The links that meet the criteria are included in co-expressed links (CLs).
 
-e). Differentially coexpressed links (gene pairs) are identified from CLs using the criteria that the absolute value of the difference between the two correlation coefficients is greater than the threshold *r.diffth* and the adjusted p value is less than the threshold *q.diffth*. The links that meet the criteria are included in DCLs.
+e). Differentially coexpressed links (gene pairs) are identified from CLs using the criteria that the absolute value of the difference between the two correlation coefficients is greater than the threshold *r.diffth* and its adjusted p value is less than the threshold *q.diffth*. The links that meet the criteria are included in DCLs.
 
-f). The DCLs are classified into three categories: *same signed*, *diff signed*, or *switched opposites*. *same signed* indicates that the gene pair has same signed correlation coefficients under both conditions. *diff signed* indicates that the gene pair has oppositely signed correlation coefficients under two conditions and only one of them meets the criteria that the absolute correlation coefficient is greater than the threshold *rth* and adjusted p value less than the threshold *qth*. *switched opposites* indicates that the gene pair has oppositely signed correlation coefficients under two conditions and both of them meet the criteria that the absolute correlation coefficients are greater than the threshold *rth* and adjusted p value less than the threshold *qth*.
+f). The DCLs are classified into three categories: *same signed*, *diff signed*, or *switched opposites*. *same signed* indicates that the gene pair has same signed correlation coefficients under both conditions. *diff signed* indicates that the gene pair has oppositely signed correlation coefficients under two conditions and only one of them meets the criteria that absolute correlation coefficient is greater than the threshold *rth* and adjusted p value less than the threshold *qth*. *switched opposites* indicates that the gene pair has oppositely signed correlation coefficients under two conditions and both of them meet the criteria that absolute correlation coefficient is greater than the threshold *rth* and adjusted p value less than the threshold *qth*.
 
 g). All the genes in DCLs are tested for their enrichment of DCLs, i.e, whether they have more DCLs than by chance using binomial probability model (Jiang et al., 2016). Those with adjusted p value less than the threshold *q.dcgth* are included in DCGs.
 
 ## 2. Installation and removal
-From April 2018, this package will be available from Bioconductor and can be
+From May 2018, this package will be available from Bioconductor and can be
 installed within R as follows:
 ```R
 ## try http:// if https:// URLs are not supported
@@ -41,8 +41,8 @@ The above method does not build and install vignette. To install the package wit
 ```
 git clone https://github.com/hidelab/diffcoexp.git
 R CMD build diffcoexp
-R CMD check diffcoexp_0.99.4.tar.gz
-R CMD INSTALL diffcoexp_0.99.4.tar.gz
+R CMD check diffcoexp_0.99.5.tar.gz
+R CMD INSTALL diffcoexp_0.99.5.tar.gz
 ```
 To remove this package, start R and enter:
 ```R
@@ -104,7 +104,7 @@ sessionInfo()
 de la Fuente A (2010). From “differential expression” to “differential networking” –
 identification of dysfunctional regulatory networks in diseases. *Trends in Genetics*, 26(7):326-33.
 
-Fisher, R. A. (1915). Frequency distribution of the values of the correlation coefficient in samples of an indefinitely large population. *Biometrika*, 10 (4): 507–521. 
+Fisher, R. A. (1915). Frequency distribution of the values of the correlation coefficient in samples of an indefinitely large population. *Biometrika*, 10 (4): 507–521.
 
 Fisher, R. A. (1921). On the 'probable error' of a coefficient of correlation deduced from a small sample. *Metron*, 1: 3–32.
 

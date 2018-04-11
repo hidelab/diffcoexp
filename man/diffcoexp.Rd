@@ -25,11 +25,11 @@ a list of two data frames.
 
 The DCGs data frame contains genes that contribute to differentially correlated links (gene pairs) with q value less than q.dcgth. It has the following columns:
   \item{\code{Gene}}{Gene ID}
-  \item{\code{CLs}}{Number of links with the absolute correlation coefficients greater than rth and q value less than qth in at least one condition}
-  \item{\code{DCLs}}{Number of links that meet the criteria for CLs and the criteria that the absolute differences between the correlation coefficients in the two condition greater than r.diffth and q value less than q.diffth}
+  \item{\code{CLs}}{Number of links with absolute correlation coefficient greater than rth and q value less than qth in at least one condition}
+  \item{\code{DCLs}}{Number of links that meet the criteria for CLs and the criteria that absolute difference between the correlation coefficients of the two condition is greater than r.diffth and q value less than q.diffth}
   \item{\code{DCL.same}}{Number of subset of DCLs with same signed correlation coefficients in both conditions}
-  \item{\code{DCL.diff}}{Number of subset of DCLs with oppositely signed correlation coefficients under two conditions but only one of them with the absolute correlation coefficients greater than rth and q value less than qth}
-  \item{\code{DCL.switch}}{Number of subset of DCLs with oppositely signed correlation coefficients under two conditions and both of them with the absolute correlation coefficients greater than rth and q value less than qth}
+  \item{\code{DCL.diff}}{Number of subset of DCLs with oppositely signed correlation coefficients under two conditions but only one of them has absolute correlation coefficient greater than rth and q value less than qth}
+  \item{\code{DCL.switch}}{Number of subset of DCLs with oppositely signed correlation coefficients under two conditions and both of them have absolute correlation coefficient greater than rth and q value less than qth}
   \item{\code{p}}{p value of having >=DCLs given CLs}
   \item{\code{q}}{adjusted p value}
 
@@ -45,7 +45,7 @@ The DCLs data frame contains the differentially correlated links (gene pairs) th
   \item{\code{q.1}}{adjusted p value under null hypothesis that correlation coefficient under condition 1 equals to zero}
   \item{\code{q.2}}{adjusted p value under null hypothesis that correlation coefficient under condition 2 equals to zero}
   \item{\code{q.diffcor}}{adjusted p value under null hypothesis that the difference between two correlation coefficients under two conditions equals to zero using Fisher's r-to-Z transformation}
-  \item{\code{type}}{can have value "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has oppositely signed correlation coefficients under two conditions and only one of them meets the criteria that the absolute correlation coefficients greater than rth and q value less than qth. "switched opposites" indicates that the gene pair has oppositely signed correlation coefficients under two conditions and both of them meet the criteria that the absolute correlation coefficients greater than rth and q value less than qth.}
+  \item{\code{type}}{can have value "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has oppositely signed correlation coefficients under two conditions and only one of them meets the criteria that absolute correlation coefficient is greater than rth and q value less than qth. "switched opposites" indicates that the gene pair has oppositely signed correlation coefficients under two conditions and both of them meet the criteria that absolute correlation coefficient is greater than rth and q value less than qth.}
 }
 \description{
 This function identifies differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs).
@@ -61,11 +61,11 @@ b). The difference between the correlation coefficients  under two conditions ar
 
 c). p values are adjusted.
 
-d). Gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the correlation coefficients under two conditions having absolute value greater than the threshold rth and the adjusted p value less than the threshold qth. The links that meet the criteria are included in CLs.
+d). Gene pairs (links) coexpressed in at least one condition are identified using the criteria that at least one of the correlation coefficients under two conditions has absolute value greater than the threshold rth and adjusted p value less than the threshold qth. The links that meet the criteria are included in CLs.
 
-e). Differentially coexpressed gene pairs (links) are identified from CLs using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold r.diffth and the adjusted p value is less than the threshold q.diffth. The links that meet the criteria are included in DCLs.
+e). Differentially coexpressed gene pairs (links) are identified from CLs using the criteria that the absolute value of the difference between the two correlation coefficients is greater the threshold r.diffth and adjusted p value is less than the threshold q.diffth. The links that meet the criteria are included in DCLs.
 
-f). The DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has oppositely signed correlation coefficients under two conditions and only one of them meets the criteria that the absolute correlation coefficient is greater than the threshold rth and adjusted p value less than the threshold qth. "switched opposites" indicates that the gene pair has oppositely signed correlation coefficients under two conditions and both of them meet the criteria that the absolute correlation coefficients are greater than the threshold rth and adjusted p value less than the threshold qth.
+f). The DCLs are classified into three categories: "same signed", "diff signed", or "switched opposites". "same signed" indicates that the gene pair has same signed correlation coefficients under both conditions. "diff signed" indicates that the gene pair has oppositely signed correlation coefficients under two conditions and only one of them meets the criteria that absolute correlation coefficient is greater than the threshold rth and adjusted p value less than the threshold qth. "switched opposites" indicates that the gene pair has oppositely signed correlation coefficients under two conditions and both of them meet the criteria that absolute correlation coefficient is greater than the threshold rth and adjusted p value less than the threshold qth.
 
 g). All the genes in DCLs are tested for their enrichment of DCLs, i.e, whether they have more DCLs than by chance using binomial probability model (Jiang et al., 2016). Those with adjusted p value less than the threshold q.dcgth are included in DCGs.
 }
