@@ -29,8 +29,9 @@ From May 2018, this package will be available from Bioconductor and can be
 installed within R as follows:
 ```R
 ## try http:// if https:// URLs are not supported
-source("https://bioconductor.org/biocLite.R")
-biocLite("diffcoexp")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("diffcoexp")
 ```
 To install this package from GitHub, start R and enter:
 ```R
