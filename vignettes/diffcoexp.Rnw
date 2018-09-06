@@ -60,7 +60,8 @@ with adjusted p value less than the threshold \emph{q.dcgth} are included in DCG
 \noindent
 From May 2018, this package will be available from Bioconductor and can be installed within R as follows: \par
 \#\# try http:// if https:// URLs are not supported \par
-source("https://bioconductor.org/biocLite.R") \par
+if (!requireNamespace("BiocManager", quietly=TRUE)) \par
+    install.packages("BiocManager") \par
 BiocManager::install("diffcoexp") \smallskip
 \par
 \noindent
