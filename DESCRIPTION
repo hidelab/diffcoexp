@@ -1,6 +1,6 @@
 Package: diffcoexp
 Title: Differential Co-expression Analysis
-Version: 0.99.5
+Version: 0.99.6
 Date: 2018-04-11
 Author: Wenbin Wei, Sandeep Amberkar, Winston Hide
 Description: A tool for the identification of differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions. DCGs are genes with significantly more DCLs than by chance.
@@ -9,7 +9,7 @@ Depends: R (>= 3.5), WGCNA, SummarizedExperiment
 Imports: stats, DiffCorr, psych, igraph, BiocGenerics
 Suggests: GEOquery
 URL: https://github.com/hidelab/diffcoexp
-biocViews: GeneExpression, DifferentialExpression, Transcription, Microarray, OneChannel, TwoChannel, RNASeq, Sequencing, Coverage
+biocViews: GeneExpression, DifferentialExpression, Transcription, Microarray, OneChannel, TwoChannel, RNASeq, Sequencing, Coverage, ImmunoOncology
 License: GPL (>2)
 Encoding: UTF-8
 LazyData: true
