@@ -2,7 +2,7 @@
 \documentclass{article}
 \usepackage{authblk}
 \title{About \emph{diffcoexp}}
-\date{April 11, 2018}
+\date{December 1, 2018}
 \author{Wenbin Wei, Sandeep Amberkar, Winston Hide}
 \affil{Sheffield Institute of Translational Neuroscience, University of Sheffield, Sheffield, United Kingdom}
 \usepackage[utf8]{inputenc}
