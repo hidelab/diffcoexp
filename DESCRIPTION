@@ -1,6 +1,6 @@
 Package: diffcoexp
 Title: Differential Co-expression Analysis
-Version: 1.4.0
+Version: 1.5.0
 Date: 2018-12-01
 Author: Wenbin Wei, Sandeep Amberkar, Winston Hide
 Description: A tool for the identification of differentially coexpressed links (DCLs) and differentially coexpressed genes (DCGs). DCLs are gene pairs with significantly different correlation coefficients under two conditions. DCGs are genes with significantly more DCLs than by chance.
