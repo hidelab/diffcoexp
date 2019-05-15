@@ -2,7 +2,7 @@ diffcoexp
 =========
 Differential coexpression analysis
 
-##### Wenbin Wei, Sandeep Amberkar, Winston Hide, December 1, 2018
+##### Wenbin Wei, Sandeep Amberkar, Winston Hide, May 15, 2019
 
 ## 1. Description
 
@@ -25,7 +25,7 @@ f). The DCLs are classified into three categories: *same signed*, *diff signed*,
 g). All the genes in DCLs are tested for their enrichment of DCLs, i.e, whether they have more DCLs than by chance using binomial probability model (Jiang et al., 2016). Those with adjusted p value less than the threshold *q.dcgth* are included in DCGs.
 
 ## 2. Installation and removal
-From May 2018, this package will be available from Bioconductor and can be
+This package is available from Bioconductor and can be
 installed within R as follows:
 ```R
 ## try http:// if https:// URLs are not supported
@@ -42,8 +42,8 @@ The above method does not build and install vignette. To install the package wit
 ```
 git clone https://github.com/hidelab/diffcoexp.git
 R CMD build diffcoexp
-R CMD check diffcoexp_1.3.1.tar.gz
-R CMD INSTALL diffcoexp_1.3.1.tar.gz
+R CMD check diffcoexp_1.3.2.tar.gz
+R CMD INSTALL diffcoexp_1.3.2.tar.gz
 ```
 To remove this package, start R and enter:
 ```R

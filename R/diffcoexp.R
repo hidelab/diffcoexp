@@ -106,7 +106,7 @@
 #'
 #' d). Gene pairs (links) coexpressed in at least one condition are identified
 #' using the criteria that at least one of the correlation coefficients under
-#' two conditions has absolute value greater than the threshold rth and 
+#' two conditions has absolute value greater than the threshold rth and
 #' adjusted p value less than the threshold qth. The links that meet the
 #' criteria are included in CLs.
 #'
@@ -180,20 +180,20 @@
       warning("The minimum number of columns is less than five and the result
               may not be reliable.")
     }
-    
+
     m <- nrow(exprs.1)
     genes <- rownames(exprs.1)
-    
+
     colinks <- coexpr(exprs.1, exprs.2, r.method = r.method, rth = rth, qth = qth)
     if (!is.null(colinks)) {
       message("Finished running coexpr.")
     }
-    
+
     if (nrow(colinks) == 0) {
       Result <- emptyresult()
       return(Result)
     }
-    
+
     # colinks$cor.diff<-colinks$cor.2-colinks$cor.1
     #############################################################
     ## decide three sets of correlation pairs and organize them into two-columned matrices.
@@ -206,15 +206,15 @@
       (abs(colinks$cor.1) >= rth & abs(colinks$cor.2) >= rth &
          colinks$q.1 < qth & colinks$q.2 < qth)
     idx.switched[is.na(idx.switched)] <- FALSE
-    
+
     cor.same <- colinks[idx.same, ]
     cor.switched <- colinks[idx.switched, ]
     cor.diff <- colinks[idx.diff & (!idx.switched), ]
-    
+
     name.same <- NULL
     name.switched <- NULL
     name.diff <- NULL
-    
+
     #############################################################
     ## Determine DCLs from same sign correlation pairs
     #############################################################
@@ -228,7 +228,7 @@
     } else {
       DCL.same <- NULL
     }
-    
+
     #############################################################
     ## Determine DCLs from different sign correlation pairs
     #############################################################
@@ -242,7 +242,7 @@
     } else {
       DCL.diff <- NULL
     }
-    
+
     #############################################################################
     ## Determine Switched DCLs if they exist
     #############################################################################
@@ -256,7 +256,7 @@
     } else {
       DCL.switched <- NULL
     }
-    
+
     n.DCL <- n.sameDCL + n.diffDCL + n.switchedDCL
     message(nrow(colinks), " gene pairs remain after half thresholding.")
     if (n.DCL == 0) {
@@ -267,7 +267,7 @@
       message(n.DCL, " DCLs identified.")
     }
     name.DCL <- rbind(name.same, name.diff, name.switched)
-    
+
     ####################################
     ## colinks
     ####################################
@@ -275,14 +275,14 @@
     g.colinks <- igraph::graph.data.frame(name.colinks)
     g.colinks.name <- as.matrix(igraph::V(g.colinks)$name)
     degree.colinks <- igraph::degree(g.colinks)
-    
+
     #####################################
     ## DCLs
     #####################################
     g.DCL <- igraph::graph.data.frame(name.DCL)
     g.DCL.name <- as.matrix(igraph::V(g.DCL)$name)
     degree.DCL <- igraph::degree(g.DCL)
-    
+
     ######################################
     ## DCLs of same sign
     ######################################
@@ -293,7 +293,7 @@
     } else {
       degree.same <- matrix(0, 1, 1)
     }
-    
+
     ########################################
     ## DCLs of different sign
     ########################################
@@ -304,7 +304,7 @@
     } else {
       degree.diff <- matrix(0, 1, 1)
     }
-    
+
     #######################################
     ## DCLs of switched correlation
     #######################################
@@ -315,14 +315,14 @@
     } else {
       degree.switch <- matrix(0, 1, 1)
     }
-    
+
     #######################################
     ## Numbers for DCLs of different type.
     #######################################
-    degree.bind <- data.frame(matrix(0, m, 5), stringsAsFactors = F)
+    degree.bind <- data.frame(matrix(0, m, 5), stringsAsFactors = FALSE)
     row.names(degree.bind) <- genes
     colnames(degree.bind) <- c("CLs", "DCLs", "DCL.same", "DCL.diff", "DCL.switched")
-    
+
     degree.bind[g.colinks.name, 1] <- degree.colinks
     degree.bind[g.DCL.name, 2] <- degree.DCL
     if (n.sameDCL > 0) {
@@ -334,7 +334,7 @@
     if (n.switchedDCL > 0) {
       degree.bind[g.switch.name, 5] <- degree.switch
     }
-    
+
     ########################################################
     ## DCGs Identification
     ########################################################
@@ -353,24 +353,24 @@
     o <- order(DCGs$p)
     DCGs <- DCGs[o, ]
     message(length(DCGs$Gene), " DCGs identified.")
-    
+
     #########################################################
     DCLs <- data.frame()
     if (n.sameDCL > 0) {
       DCLs <- rbind(DCLs, data.frame(DCL.same, type = "same signed"))
     }
-    
+
     if (n.diffDCL > 0) {
       DCLs <- rbind(DCLs, data.frame(DCL.diff, type = "diff signed"))
     }
-    
+
     if (n.switchedDCL > 0) {
       DCLs <- rbind(DCLs, data.frame(DCL.switched, type = "switched opposites"))
     }
-    
+
     DCLs$Gene.1 <- as.character(DCLs$Gene.1)
     DCLs$Gene.2 <- as.character(DCLs$Gene.2)
-    
+
     Result <- list(DCGs = DCGs, DCLs = DCLs)
     return(Result)
     }

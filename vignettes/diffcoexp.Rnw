@@ -58,7 +58,7 @@ more DCLs than by chance using binomial probability model (Jiang et al., 2016). 
 with adjusted p value less than the threshold \emph{q.dcgth} are included in DCGs.
 \section{Installation and removal}
 \noindent
-From May 2018, this package will be available from Bioconductor and can be installed within R as follows: \par
+This package is available from Bioconductor and can be installed within R as follows: \par
 \#\# try http:// if https:// URLs are not supported \par
 if (!requireNamespace("BiocManager", quietly=TRUE)) \par
     install.packages("BiocManager") \par
@@ -76,8 +76,8 @@ vignette, enter the following from command line: \par
 \par
 git clone https://github.com/hidelab/diffcoexp.git \par
 R CMD build diffcoexp \par
-R CMD check diffcoexp\_1.3.1.tar.gz \par
-R CMD INSTALL diffcoexp\_1.3.1.tar.gz \smallskip
+R CMD check diffcoexp\_1.3.2.tar.gz \par
+R CMD INSTALL diffcoexp\_1.3.2.tar.gz \smallskip
 \par
 \noindent
 To remove this package, start R and enter: \par
