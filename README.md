@@ -2,7 +2,7 @@ diffcoexp
 =========
 Differential coexpression analysis
 
-##### Wenbin Wei, Sandeep Amberkar, Winston Hide, May 15, 2019
+##### Wenbin Wei, Sandeep Amberkar, Winston Hide, Nov 23, 2020
 
 ## 1. Description
 
@@ -42,8 +42,8 @@ The above method does not build and install vignette. To install the package wit
 ```
 git clone https://github.com/hidelab/diffcoexp.git
 R CMD build diffcoexp
-R CMD check diffcoexp_1.3.2.tar.gz
-R CMD INSTALL diffcoexp_1.3.2.tar.gz
+R CMD check diffcoexp_1.11.1.tar.gz
+R CMD INSTALL diffcoexp_1.11.1.tar.gz
 ```
 To remove this package, start R and enter:
 ```R

@@ -2,7 +2,7 @@
 \documentclass{article}
 \usepackage{authblk}
 \title{About \emph{diffcoexp}}
-\date{December 1, 2018}
+\date{November 23, 2020}
 \author{Wenbin Wei, Sandeep Amberkar, Winston Hide}
 \affil{Sheffield Institute of Translational Neuroscience, University of Sheffield, Sheffield, United Kingdom}
 \usepackage[utf8]{inputenc}
@@ -76,8 +76,8 @@ vignette, enter the following from command line: \par
 \par
 git clone https://github.com/hidelab/diffcoexp.git \par
 R CMD build diffcoexp \par
-R CMD check diffcoexp\_1.3.2.tar.gz \par
-R CMD INSTALL diffcoexp\_1.3.2.tar.gz \smallskip
+R CMD check diffcoexp\_1.11.1.tar.gz \par
+R CMD INSTALL diffcoexp\_1.11.1.tar.gz \smallskip
 \par
 \noindent
 To remove this package, start R and enter: \par
