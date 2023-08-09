@@ -7,7 +7,7 @@ Description: A tool for the identification of differentially coexpressed links (
 Maintainer: Wenbin Wei <wenbin.wei2@durham.ac.uk>
 Depends: R (>= 3.5), WGCNA, SummarizedExperiment
 Imports: stats, DiffCorr, psych, igraph, BiocGenerics
-Suggests: GEOquery
+Suggests: GEOquery, RUnit
 URL: https://github.com/hidelab/diffcoexp
 biocViews: GeneExpression, DifferentialExpression, Transcription, Microarray, OneChannel, TwoChannel, RNASeq, Sequencing, Coverage, ImmunoOncology
 License: GPL (>2)
